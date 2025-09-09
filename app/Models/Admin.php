@@ -1,19 +1,32 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
-    protected $primaryKey = 'id_admin';
-    protected $fillable = ['username','nama','password','id_role'];
+    use HasFactory, SoftDeletes;
 
-    public function role() {
+    protected $table = 'admin';
+    protected $primaryKey = 'id_admin';
+    protected $fillable = ['username', 'nama', 'password', 'id_role'];
+    protected $hidden = ['password'];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function role()
+    {
         return $this->belongsTo(Role::class, 'id_role');
     }
 
-    public function pengajuans() {
+    public function pengajuan()
+    {
         return $this->hasMany(Pengajuan::class, 'id_admin');
     }
 }

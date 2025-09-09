@@ -2,14 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class barang extends Model
+class Barang extends Model
 {
-    protected $primaryKey = 'id_barang';
-    protected $fillable = ['nama_barang','jumlah','keterangan'];
+    use HasFactory, SoftDeletes;
 
-    public function pengajuans() {
+    protected $table = 'barang';
+    protected $primaryKey = 'id_barang';
+    protected $fillable = ['nama_barang', 'jumlah', 'keterangan'];
+
+    public function pengajuan()
+    {
         return $this->hasMany(Pengajuan::class, 'id_barang');
     }
 }

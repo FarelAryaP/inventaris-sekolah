@@ -1,24 +1,21 @@
 <?php
-
+// app/Models/User.php
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class User extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, SoftDeletes;
 
+    protected $table = 'user';
     protected $primaryKey = 'nisn';
-    public $incrementing = false;
-    protected $keyType = 'int';
-    protected $fillable = ['nisn','nama','kelas'];
+    protected $fillable = ['nama', 'kelas'];
 
-    public function pengajuans() {
-        return $this->hasMany(Pengajuan::class, 'nisn');
+    public function pengajuan()
+    {
+        return $this->hasMany(Pengajuan::class, 'nisn', 'nisn');
     }
 }
