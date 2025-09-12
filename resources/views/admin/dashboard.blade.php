@@ -27,7 +27,7 @@
         </div>
     </div>
     
-    <div class="col-md-3">
+    {{-- <div class="col-md-3">
         <div class="card text-white bg-success">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
@@ -118,7 +118,7 @@
                 @endif
             </div>
         </div>
-    </div>
+    </div> --}}
     
     <!-- Stok Rendah -->
     <div class="col-md-4">
