@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<!-- Statistics Cards -->
+<!-- Statistics -->
 <div class="row mb-4">
     <div class="col-md-3">
         <div class="card text-white bg-primary">
@@ -27,7 +27,7 @@
         </div>
     </div>
     
-    {{-- <div class="col-md-3">
+    <div class="col-md-3">
         <div class="card text-white bg-success">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
@@ -59,7 +59,7 @@
         </div>
     </div>
     
-    <div class="col-md-3">
+{{--     <div class="col-md-3">
         <div class="card text-white bg-info">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="row">
     <!-- Pengajuan Terbaru -->
@@ -118,7 +118,7 @@
                 @endif
             </div>
         </div>
-    </div> --}}
+    </div> 
     
     <!-- Stok Rendah -->
     <div class="col-md-4">

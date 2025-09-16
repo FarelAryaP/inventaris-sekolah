@@ -15,7 +15,14 @@ class Pengajuan extends Model
         'nisn', 'id_barang', 'jumlah', 'tgl_pengajuan',
         'tgl_mulai', 'tgl_selesai', 'status', 'id_admin'
     ];
-    protected $dates = ['tgl_pengajuan', 'tgl_mulai', 'tgl_selesai'];
+    protected $casts = [
+        'tgl_pengajuan' => 'datetime',
+        'tgl_mulai' => 'date',
+        'tgl_selesai' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
 
     public function user()
     {

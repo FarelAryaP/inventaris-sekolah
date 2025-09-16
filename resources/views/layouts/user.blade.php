@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Panel') - Inventaris Sekolah</title>
+    <title>@yield('title', 'Dashboard') - Inventaris Sekolah</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
-                <i class="bi bi-box-seam"></i> Inventaris Sekolah
+            <a class="navbar-brand" href="{{ route('user.dashboard') }}">
+                <i class="bi bi-backpack2"></i> Portal Siswa
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -22,13 +22,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                        <a class="nav-link" href="{{ route('user.dashboard') }}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.barang.index') }}">Barang</a>
+                        <a class="nav-link" href="{{ route('user.pengajuan.index') }}">Pengajuan Saya</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.pengajuan.index') }}">Pengajuan</a>
+                        <a class="nav-link" href="{{ route('user.pengajuan.create') }}">Ajukan Barang</a>
                     </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.peminjaman.index') }}">Peminjaman</a>
@@ -41,11 +41,14 @@
                 <div class="navbar-nav">
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person"></i> {{ Auth::guard('admin')->user()->nama }}
+                            <i class="bi bi-person"></i> {{ Auth::guard('user')->nama }}
                         </a>
                         <ul class="dropdown-menu">
+                            <li><span class="dropdown-item-text">NISN: {{ Auth::guard('user')->nisn }}</span></li>
+                            <li><span class="dropdown-item-text">Kelas: {{ Auth::guard('user')->kelas }}</span></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li>
-                                <form action="{{ route('admin.logout') }}" method="POST">
+                                <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="dropdown-item">
                                         <i class="bi bi-box-arrow-right"></i> Logout
