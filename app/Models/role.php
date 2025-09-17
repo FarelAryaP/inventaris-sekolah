@@ -1,14 +1,20 @@
 <?php
-
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class role extends Model
+class Role extends Model
 {
-    protected $fillable = ['nama','deskripsi'];
+    use HasFactory, SoftDeletes;
 
-    public function admins() {
+    protected $table = 'role';
+    protected $primaryKey = 'id_role';
+    protected $fillable = ['nama', 'deskripsi'];
+
+    public function admin()
+    {
         return $this->hasMany(Admin::class, 'id_role');
     }
 }
