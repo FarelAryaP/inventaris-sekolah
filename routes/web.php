@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\PengajuanController as AdminPengajuanController;
 
-//tes
+
 Route::get('/', function () {
     return redirect('/login');
 });
