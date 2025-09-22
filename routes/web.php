@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\UserAuthController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\PengajuanController as AdminPengajuanController;
@@ -49,5 +48,3 @@ Route::middleware(['admin.auth'])->prefix('admin')->name('admin.')->group(functi
 Route::get('/register', function () {
     return view('auth.register');
 });
-
-Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
