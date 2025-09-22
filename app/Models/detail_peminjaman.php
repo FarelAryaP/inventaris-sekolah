@@ -15,7 +15,10 @@ class detail_peminjaman extends Model
     protected $fillable = [
         'id_pengajuan', 'tgl_mulai', 'tgl_selesai', 'status'
     ];
-    protected $dates = ['tgl_mulai', 'tgl_selesai'];
+    protected $casts = [
+        'tgl_mulai' => 'date',
+        'tgl_selesai' => 'date',
+    ];
 
     public function pengajuan()
     {

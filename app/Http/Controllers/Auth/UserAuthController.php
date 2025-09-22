@@ -1,5 +1,5 @@
 <?php
-
+// app/Http/Controllers/Auth/UserAuthController.php
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -18,25 +18,23 @@ class UserAuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'nisn' => 'required',
+            'nisn' => 'required|numeric',
             'password' => 'required'
         ]);
 
-        $user = User::where('nisn', $credentials['nisn'])->first();
-
-        if ($user && Hash::check($credentials['password'], $user->password)) {
-            Auth::guard('user')->login($user);
-            return redirect()->intended('/user/dashboard');
+        if (Auth::guard('user')->attempt($credentials)) {
+            $request->session()->regenerate(); 
+            return redirect()->intended('/dashboard');
         }
 
         return back()->withErrors([
             'nisn' => 'NISN atau password salah.',
-        ]);
+        ])->withInput($request->except('password'));
     }
-
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard('user')->logout();
+
         return redirect('/login');
     }
 }
