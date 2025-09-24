@@ -1,0 +1,133 @@
+body {
+  background: #9AC1FA;
+}
+.container-login {
+  width: 400px;
+  margin: 3.5% auto;
+  padding: 30px 25px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.title-login {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1.2px;
+  color: #9AC1FA;
+}
+
+.alert {
+  text-align: left;
+  background-color: #ff4d4d;
+  border-radius: 6px;
+  padding: 10px 15px;
+  margin-bottom: 18px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255,77,77,0.6);
+}
+
+.form-label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #88b7fe;
+  letter-spacing: 0.4px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #88b7fe;
+  font-size: 1.2em;
+  box-sizing: border-box;
+  box-shadow: inset 0 2px 6px #00000061;
+  transition: box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  box-shadow: inset 0 2px 6px #00000061;
+  background-color: #cce3ff66;
+  color: #000000;
+}
+
+.form-user { margin-bottom: 20px; }
+
+.btn-submit {
+ background-color: #9AC1FA;
+ border: none;
+ padding: 10px;
+ font-size: 1.2rem;
+ width: 10em;
+ border-radius: 1rem;
+ color: rgb(255, 255, 255);
+ box-shadow: 0 5px #5383d1;
+ cursor: pointer;
+ margin-top: 5px;
+}
+
+.btn-submit:active {
+ color: white;
+ box-shadow: 0 0.3rem #3664b0;
+ transform: translateY(0.2rem);
+}
+
+@media (max-width: 400px) {
+  .container-login { width: 90%; padding: 25px 20px; }
+  .title-login { font-size: 24px; }
+}
+
+.user-section {
+  position: relative;
+  font-size: 16px;
+  padding: 1em 2em;
+  cursor: pointer;
+  border-radius: 6em;
+  transition: all 0.2s;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: white;
+  background-color: #5383d1;
+  margin: 0 auto;
+  display: table;
+}
+
+.user-section svg {
+  vertical-align: middle;
+  margin-left: -8px;
+  margin-right: 4px;
+}
+
+.user-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.user-section:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-section::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.user-section::after { background-color: #fff; }
+
+.user-section:hover::after { transform: scaleX(1.4) scaleY(1.6); opacity: 0; }

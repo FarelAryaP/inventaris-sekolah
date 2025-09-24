@@ -44,3 +44,7 @@ Route::middleware(['admin.auth'])->prefix('admin')->name('admin.')->group(functi
         Route::patch('/{pengajuan}/reject', [AdminPengajuanController::class, 'reject'])->name('reject');
     });
 });
+
+Route::get('/register', function () {
+    return view('auth.register');
+});
