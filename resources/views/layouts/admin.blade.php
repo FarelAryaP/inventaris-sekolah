@@ -8,7 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
                 <i class="bi bi-box-seam"></i> Inventaris Sekolah
@@ -57,10 +58,6 @@
             </div>
         </div>
     </nav>
-
-
-
-
 
     <!-- Main Content -->
     <div class="container-fluid mt-4">
