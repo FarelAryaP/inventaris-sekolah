@@ -30,12 +30,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.pengajuan.index') }}">Pengajuan</a>
                     </li>
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.peminjaman.index') }}">Peminjaman</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.laporan.peminjaman') }}">Laporan</a>
-                    </li> --}}
+                    </li>
                 </ul>
                 
                 <div class="navbar-nav">

@@ -19,7 +19,19 @@ class User extends Authenticable
 
     public function setPasswordAttribute($password)
     {
-        $this->attributes['password'] = Hash::make($password);
+        if (!empty($password)) {
+            $this->attributes['password'] = Hash::make($password);
+        }
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'nisn';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->getAttribute('nisn');
     }
 
     public function pengajuan()

@@ -30,22 +30,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.pengajuan.create') }}">Ajukan Barang</a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.peminjaman.index') }}">Peminjaman</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.laporan.peminjaman') }}">Laporan</a>
-                    </li> --}}
                 </ul>
                 
                 <div class="navbar-nav">
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person"></i> {{ Auth::guard('user')->nama }}
+                            <i class="bi bi-person"></i> {{ Auth::guard('user')->user()->nama }}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><span class="dropdown-item-text">NISN: {{ Auth::guard('user')->nisn }}</span></li>
-                            <li><span class="dropdown-item-text">Kelas: {{ Auth::guard('user')->kelas }}</span></li>
+                            <li>
+                                <span class="dropdown-item-text">NISN: {{ Auth::guard('user')->user()->nisn }}</span>
+                            </li>
+                            <li>
+                                <span class="dropdown-item-text">Kelas: {{ Auth::guard('user')->user()->kelas }}</span>
+                            </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
