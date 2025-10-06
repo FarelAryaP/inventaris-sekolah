@@ -29,4 +29,10 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Pengajuan::class, 'id_admin');
     }
+    
+    public function getAuthIdentifierName()
+    {
+    return 'username';
+    }
+
 }
