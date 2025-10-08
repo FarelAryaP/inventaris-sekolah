@@ -16,6 +16,12 @@ class BarangController extends Controller
 
     public function create()
     {
+        // Jika request AJAX, kirim partial view (untuk modal)
+        if (request()->ajax()) {
+            return view('admin.barang.partials.form-create');
+        }
+
+        // Jika bukan AJAX, tampilkan halaman biasa
         return view('admin.barang.create');
     }
 
@@ -35,11 +41,19 @@ class BarangController extends Controller
 
     public function show(Barang $barang)
     {
+        if (request()->ajax()) {
+            return view('admin.barang.partials.show', compact('barang'));
+        }
+
         return view('admin.barang.show', compact('barang'));
     }
 
     public function edit(Barang $barang)
     {
+        if (request()->ajax()) {
+            return view('admin.barang.partials.form-edit', compact('barang'));
+        }
+
         return view('admin.barang.edit', compact('barang'));
     }
 
