@@ -20,6 +20,14 @@
             <td class="fw-bold">Keterangan</td>
             <td>: {{ $barang->keterangan ?: 'Tidak ada keterangan' }}</td>
         </tr>
+                <tr>
+            <td class="fw-bold">Tanggal Ditambahkan</td>
+            <td>: {{ $barang->created_at ? $barang->created_at->translatedFormat('d F Y, H:i') : '-' }}</td>
+        </tr>
+        <tr>
+            <td class="fw-bold">Terakhir Diperbarui</td>
+            <td>: {{ $barang->updated_at ? $barang->updated_at->translatedFormat('d F Y, H:i') : '-' }}</td>
+        </tr>
     </table>
 
     <div class="text-end">

@@ -99,8 +99,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   border: 1px solid #ccc;
   background-color: #fff;
@@ -145,24 +145,67 @@
 }
 
 .btn-outline.info {
-  color: #3b82f6;
-  border-color: #3b82f6;
+  color: #80b3ff;
+  border-color: #80b3ff;
 }
 
 .btn-outline.warning {
-  color: #eab308;
-  border-color: #eab308;
+  color: #ffd06b;
+  border-color: #ffd06b;
 }
 
 .btn-outline.danger {
-  color: #ef4444;
-  border-color: #ef4444;
+  color: #ff6b6b;
+  border-color: #ff6b6b;
 }
 
+/* === Pagination Custom (tanpa Bootstrap) === */
 .pagination-wrapper {
-  margin-top: 1.5rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
 }
+
+.custom-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.page-link {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.page-link:hover {
+  background: #80b3ff;
+  color: #fff;
+  border-color: #80b3ff;
+}
+
+.page-link.active {
+  background: #80b3ff;
+  color: #fff;
+  border-color: #80b3ff;
+  font-weight: 600;
+  cursor: default;
+}
+
+.page-link.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f1f1f1;
+  color: #888;
+}
+
 
 /* modal pop up */
 .custom-modal {

@@ -1,0 +1,199 @@
+.pengajuan-page {
+  padding: 2rem;
+  margin-left: 230px;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.custom-table thead {
+  background: #f5f8ff;
+}
+
+.custom-table th {
+  color: #333;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.text-muted {
+  color: #777;
+  font-size: 0.8rem;
+}
+
+.badge {
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.badge-warning {
+  background-color: #ffe38a;
+  color: #856404;
+}
+
+.badge-success {
+  background-color: #c2f2c2;
+  color: #1e7a1e;
+}
+
+.badge-danger {
+  background-color: #f7b0ad;
+  color: #7a1e1e;
+}
+
+/* Tombol aksi mirip barang-page */
+.action-buttons {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.25s;
+  padding: 0;
+}
+
+.btn-outline svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-outline:hover {
+  transform: translateY(-2px);
+  background-color: currentColor;
+}
+
+.btn-outline:hover svg {
+  color: white;
+}
+
+/* Warna tombol */
+.btn-outline.info {
+  color: #80b3ff;
+  border-color: #80b3ff;
+}
+
+.btn-outline.success {
+  color: #4fd67b;
+  border-color: #4fd67b;
+}
+
+.btn-outline.danger {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pengajuan-page {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .custom-table th, .custom-table td {
+    font-size: 0.85rem;
+  }
+
+  .btn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.custom-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.page-link {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.page-link:hover {
+  background: #80b3ff;
+  color: #fff;
+  border-color: #80b3ff;
+}
+
+.page-link.active {
+  background: #80b3ff;
+  color: #fff;
+  border-color: #80b3ff;
+  font-weight: 600;
+  cursor: default;
+}
+
+.page-link.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f1f1f1;
+  color: #888;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+.fst-italic {
+  font-style: italic;
+}
+

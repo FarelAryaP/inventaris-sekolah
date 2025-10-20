@@ -17,68 +17,96 @@
 
     <div class="card">
         <div class="table-wrapper">
-            <table class="barang-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nama Barang</th>
-                        <th>Jumlah</th>
-                        <th>Keterangan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($barangs as $barang)
-                    <tr>
-                        <td>{{ $barang->id_barang }}</td>
-                        <td>{{ $barang->nama_barang }}</td>
-                        <td>
-                            <span class="badge {{ $barang->jumlah < 5 ? 'warning' : 'success' }}">
-                                {{ $barang->jumlah }}
-                            </span>
-                        </td>
-                        <td>{{ Str::limit($barang->keterangan, 50) ?: '-' }}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-outline info btnShow" data-url="{{ route('admin.barang.show', $barang) }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
-                                    <circle cx="12" cy="12" r="3"/>
-                                    </svg>
-                                </button>
-                                <button class="btn-outline warning btnEdit" data-url="{{ route('admin.barang.edit', $barang) }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 20h9"/>
-                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
-                                    </svg>
-                                </button>
-                                <form action="{{ route('admin.barang.destroy', $barang) }}" 
-                                      method="POST" 
-                                      onsubmit="return confirm('Yakin ingin menghapus barang ini?')"
-                                      style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-outline danger">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="3 6 5 6 21 6"/>
-                                        <path d="M19 6l-2 14H7L5 6"/>
-                                        <path d="M10 11v6"/>
-                                        <path d="M14 11v6"/>
-                                        <path d="M9 6V4h6v2"/>
-                                        </svg>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+           <table class="barang-table">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Barang</th>
+            <th>Jumlah</th>
+            <th>Keterangan</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($barangs as $barang)
+        <tr>
+            {{-- nomor urut, bukan id_barang --}}
+            <td>{{ $barangs->firstItem() + $loop->index }}</td>
 
-        <div class="pagination-wrapper">
-            {{ $barangs->links('pagination::bootstrap-5') }}
+            <td>{{ $barang->nama_barang }}</td>
+            <td>
+                <span class="badge {{ $barang->jumlah < 5 ? 'warning' : 'success' }}">
+                    {{ $barang->jumlah }}
+                </span>
+            </td>
+            <td>{{ Str::limit($barang->keterangan, 50) ?: '-' }}</td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn-outline info btnShow" data-url="{{ route('admin.barang.show', $barang) }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                    <button class="btn-outline warning btnEdit" data-url="{{ route('admin.barang.edit', $barang) }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                        </svg>
+                    </button>
+                    <form action="{{ route('admin.barang.destroy', $barang) }}" 
+                          method="POST" 
+                          onsubmit="return confirm('Yakin ingin menghapus barang ini?')"
+                          style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-outline danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6l-2 14H7L5 6"/>
+                                <path d="M10 11v6"/>
+                                <path d="M14 11v6"/>
+                                <path d="M9 6V4h6v2"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
         </div>
+<div class="pagination-wrapper">
+    @if ($barangs->hasPages())
+        <nav class="custom-pagination">
+            {{-- Tombol "Sebelumnya" --}}
+            @if ($barangs->onFirstPage())
+                <span class="page-link disabled">&laquo;</span>
+            @else
+                <a href="{{ $barangs->previousPageUrl() }}" class="page-link">&laquo;</a>
+            @endif
+
+            {{-- Nomor halaman --}}
+            @foreach ($barangs->getUrlRange(1, $barangs->lastPage()) as $page => $url)
+                @if ($page == $barangs->currentPage())
+                    <span class="page-link active">{{ $page }}</span>
+                @else
+                    <a href="{{ $url }}" class="page-link">{{ $page }}</a>
+                @endif
+            @endforeach
+
+            {{-- Tombol "Berikutnya" --}}
+            @if ($barangs->hasMorePages())
+                <a href="{{ $barangs->nextPageUrl() }}" class="page-link">&raquo;</a>
+            @else
+                <span class="page-link disabled">&raquo;</span>
+            @endif
+        </nav>
+    @endif
+</div>
+
     </div>
 </div>
 

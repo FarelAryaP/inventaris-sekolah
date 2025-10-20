@@ -6,11 +6,11 @@ body{
 
 .sidebar {
   width: 230px;
-  height: 100vh;
+  height: 95vh;
   background: linear-gradient(to bottom, #ECF3FF, #9AC1FA);
   color: #5B6676;
   position: fixed;
-  top: 0;
+  top: 15px;
   left: 0;
   display: flex;
   flex-direction: column;
