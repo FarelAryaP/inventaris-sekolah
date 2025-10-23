@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Inventaris Sekolah</title>
+    <title>Inventaris Sekolah</title>   
+    @vite('resources/js/app.js')
 </head>
 <body>
    <div id="app">
@@ -24,6 +25,6 @@
        @csrf
    </form>
 
-   @vite('resources/js/app.js')
+
 </body>
 </html>

@@ -8,11 +8,15 @@ import { createApp } from 'vue';
 import Sidebar from './components/sidebar.vue';
 import DashboardPage from './components/DashboardPage.vue';
 import PengajuanPage from './components/PengajuanPage.vue';
+import PeminjamanPage from './components/PeminjamanPage.vue';
 
 const app = createApp({});
 
 app.component('sidebar-component', Sidebar);
 app.component('dashboard-page', DashboardPage);
 app.component('pengajuan-page', PengajuanPage);
+app.component('peminjaman-page', PeminjamanPage);
 
 app.mount('#app');
+
+console.log("✅ Vue berhasil dimount!");
