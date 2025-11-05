@@ -65,7 +65,7 @@
         }
 
         .container-fluid {
-            padding: 0 !important;
+            padding: 10 !important;
         }
 
         /* 🔔 Alert styling agar tetap rapi dengan Poppins */
