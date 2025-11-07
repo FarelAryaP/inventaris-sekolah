@@ -1,12 +1,9 @@
 @extends('layouts.user')
 
-@section('title', 'Dashboard Siswa')
-
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <h1 class="h3 mb-4">Dashboard - Selamat datang, {{ $user->nama }}!</h1>
-    </div>
+<div class="text-center mt-5">
+    <h2>Selamat Datang, {{ Auth::guard('user')->user()->nama }}</h2>
+    <p>Kamu berhasil login ke sistem inventaris sekolah sebagai siswa.</p>
 </div>
 
 <!-- Statistics Cards -->

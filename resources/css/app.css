@@ -422,3 +422,144 @@ small:hover { color: #1458a3; }
     text-align: center;
   }
 }
+
+/*laporan page*/
+.laporan-container {
+  font-family: 'Poppins', sans-serif;
+  color: #1a237e;
+  padding: 1.5rem;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.title-laporan h1 {
+  font-weight: 700;
+  color: #0d47a1;
+  margin-left: 18%;
+}
+
+/* Summary Cards */
+.info-card {
+height: 110px;
+  display: flex;
+  gap: 2rem;
+  margin-top: 3%;
+  margin-left: 18%;
+  padding: 1rem;
+  border-radius: 15px;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.500);
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.473);
+}
+
+.column-card {
+  color: white;
+  padding: .70rem 2rem;
+  border-radius: 12px;
+  flex: 1;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.410);
+}
+
+.column-card h4 {
+  font-size: 2rem;
+  margin: 0 0 0.3rem 0;
+  font-weight: 800;
+}
+
+.column-card .title-section {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Table Styles */
+.table-name {
+  max-width: 70%;
+  border-collapse: separate;
+  border-spacing: 0 .60rem;
+  font-size: 1rem;
+  color: #5b9df9;
+  margin-left: 24%;
+  background: rgba(255, 255, 255, 0.500);
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.500);
+  border-radius: 20px;
+}
+
+.table-name thead tr th {
+  text-align: left;
+  padding: 0.75rem 1rem 0.5rem 1rem;
+  font-weight: 600;
+  border-bottom: 2px solid #0c1117;
+}
+
+.table-name tbody tr {
+  background-color: #f0f4ff;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(25, 118, 210, 0.1);
+}
+
+.table-name tbody tr td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1.5px solid #90caf9;
+  vertical-align: middle;
+  border-left: none;
+  border-right: none;
+}
+
+.table-name tbody tr td:first-child,
+.table-name tbody tr td:last-child {
+  border-left: none;
+  border-right: none;
+}
+
+/* Badges */
+.badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.3em 0.8em;
+  border-radius: 1rem;
+  user-select: none;
+}
+
+.bg-primary {
+  background-color: #2196f3;
+  color: white;
+}
+
+.bg-success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.bg-warning {
+  background-color: #ffb300;
+  color: black;
+}
+
+.text-danger {
+  color: #d32f2f;
+  font-weight: 700;
+}
+
+.card-header {
+  margin-bottom: -1.2rem;
+  margin-left: 18%;
+  font-size: 1.5rem;
+  padding: -10px;
+}
+
+.card-title {
+  color: #0d47a1;
+  font-weight: 700;
+}
+
+.card-footer {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #1565c0;
+  margin-top: 1rem;
+}

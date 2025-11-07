@@ -1,11 +1,14 @@
+<script setup>
+defineProps({
+  user: Object
+})
+</script>
+
 <template>
   <div>
-    <h1>Hello Vue di Laravel Mix!</h1>
+    <slot></slot>
+    <p>Nama: {{ user.nama }}</p>
+    <p>Email: {{ user.email }}</p>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ExampleComponent',
-};
-</script>

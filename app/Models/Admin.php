@@ -31,8 +31,8 @@ class Admin extends Authenticatable
     }
     
     public function getAuthIdentifierName()
-    {
-    return 'username';
-    }
+{
+    return $this->getKeyName(); // otomatis 'id_admin'
+}
 
 }
