@@ -156,7 +156,7 @@
                     <div class="alert alert-primary">
                         <i class="bi bi-info-circle"></i> Barang sedang dipinjam
                         @if($peminjaman->tgl_selesai < now())
-                            <br><small class="text-danger">⚠️ Sudah melewati batas waktu</small>
+                            <br><small class="text-danger"> Sudah melewati batas waktu</small>
                         @else
                             <br><small>Sisa waktu: {{ now()->diffInDays($peminjaman->tgl_selesai) }} hari</small>
                         @endif

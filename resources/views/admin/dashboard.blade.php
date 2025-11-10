@@ -59,7 +59,7 @@
         </div>
     </div>
     
-{{--     <div class="col-md-3">
+    <div class="col-md-3">
         <div class="card text-white bg-info">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
 <div class="row">
     <!-- Pengajuan Terbaru -->

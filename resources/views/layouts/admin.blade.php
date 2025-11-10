@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/admin.blade.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,6 +6,7 @@
     <title>@yield('title', 'Admin Panel') - Inventaris Sekolah</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- NAVIGATION BAR -->
@@ -47,7 +47,6 @@
                         <a class="nav-link {{ request()->routeIs('admin.pengajuan.*') ? 'active' : '' }}" 
                            href="{{ route('admin.pengajuan.index') }}">
                             <i class="bi bi-file-earmark-text"></i> Pengajuan
-                            
                         </a>
                     </li>
                     
@@ -70,7 +69,7 @@
                     <!-- SUPER ADMIN ONLY MENU -->
                     @if(Auth::guard('admin')->check() && Auth::guard('admin')->user()->id_role == 1)
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.admin-management.*') ? 'active' : '' }}" 
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.admins.*') ? 'active' : '' }}" 
                                href="#" 
                                role="button" 
                                data-bs-toggle="dropdown"
@@ -94,7 +93,15 @@
                                         </span>
                                     </a>
                                 </li>
-                                
+                                <li>
+                                    <a class="dropdown-item {{ request()->routeIs('admin.admins.*') ? 'active' : '' }}" 
+                                       href="{{ route('admin.admins.index') }}">
+                                        <i class="bi bi-person-gear"></i> Kelola Admin
+                                        <span class="badge bg-info float-end">
+                                            {{ \App\Models\Admin::count() }}
+                                        </span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     @endif
@@ -200,16 +207,14 @@
     <footer class="footer mt-5 py-3 bg-light border-top">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6 ">
+                <div class="col-md-6">
                     <span class="text-muted">
-                        <p class="bi bi-c-circle text-center"> 2025 Inventaris Sekolah. All rights reserved.
-                        </p>
-                        </span>
+                        <p class="bi bi-c-circle text-center"> 2025 Inventaris Sekolah. All rights reserved.</p>
+                    </span>
                 </div>
             </div>
         </div>
     </footer>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')

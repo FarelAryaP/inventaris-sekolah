@@ -1,5 +1,4 @@
 <?php
-// app/Http/Middleware/SuperAdminAuth.php
 namespace App\Http\Middleware;
 
 use Closure;

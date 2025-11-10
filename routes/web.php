@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PengajuanController as AdminPengajuanController;
 use App\Http\Controllers\User\PengajuanController as UserPengajuanController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminController;
 
 
 Route::get('/', function () {
@@ -81,5 +82,14 @@ Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(functi
         // Additional User Management Actions
         Route::patch('/users/{user}/reset-password', [UserController::class, 'resetPassword'])
              ->name('users.reset-password');
+        
+        // ADMIN MANAGEMENT (Admin CRUD) - TAMBAHKAN SECTION INI
+        Route::resource('admins', AdminController::class)->parameters([
+            'admins' => 'admin:id_admin' // Use id_admin as route parameter
+        ]);
+        
+        // Additional Admin Management Actions
+        Route::put('/admins/{admin}/reset-password', [AdminController::class, 'resetPassword'])
+             ->name('admins.reset-password');
     });
 });
