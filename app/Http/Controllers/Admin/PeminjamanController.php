@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\detail_peminjaman;
+use App\Models\DetailPeminjaman;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,19 +11,19 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjamans = detail_peminjaman::with(['pengajuan.user', 'pengajuan.barang'])
+        $peminjamans = DetailPeminjaman::with(['pengajuan.user', 'pengajuan.barang'])
                                       ->latest()
                                       ->paginate(10);
         
         return view('admin.peminjaman.index', compact('peminjamans'));
     }
 
-    public function show(detail_peminjaman $peminjaman)
+    public function show(DetailPeminjaman $peminjaman)
     {
         return view('admin.peminjaman.show', compact('peminjaman'));
     }
 
-    public function kembalikan(detail_peminjaman $peminjaman)
+    public function kembalikan(DetailPeminjaman $peminjaman)
     {
         if ($peminjaman->status != 0) {
             return back()->withErrors(['error' => 'Barang sudah dikembalikan atau hilang!']);
@@ -44,7 +44,7 @@ class PeminjamanController extends Controller
                         ->with('success', 'Barang berhasil dikembalikan!');
     }
 
-    public function hilang(detail_peminjaman $peminjaman)
+    public function hilang(DetailPeminjaman $peminjaman)
     {
         if ($peminjaman->status != 0) {
             return back()->withErrors(['error' => 'Barang sudah dikembalikan atau hilang!']);
@@ -60,7 +60,7 @@ class PeminjamanController extends Controller
 
     public function laporanPeminjaman()
     {
-        $peminjamans = detail_peminjaman::with(['pengajuan.user', 'pengajuan.barang'])
+        $peminjamans = DetailPeminjaman::with(['pengajuan.user', 'pengajuan.barang'])
                                       ->get();
         
         return view('admin.laporan.peminjaman', compact('peminjamans'));

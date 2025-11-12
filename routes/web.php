@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\PengajuanController as AdminPengajuanController;
 use App\Http\Controllers\User\PengajuanController as UserPengajuanController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminController;
 
 
 Route::get('/', function () {
@@ -69,4 +71,25 @@ Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(functi
     
     // Laporan
     Route::get('/laporan/peminjaman', [PeminjamanController::class, 'laporanPeminjaman'])->name('laporan.peminjaman');
+
+    Route::middleware(['super.admin'])->group(function () {
+        
+        // STUDENT MANAGEMENT (User/Siswa CRUD)
+        Route::resource('users', UserController::class)->parameters([
+            'users' => 'user:nisn' // Use NISN as route parameter instead of id
+        ]);
+        
+        // Additional User Management Actions
+        Route::patch('/users/{user}/reset-password', [UserController::class, 'resetPassword'])
+             ->name('users.reset-password');
+        
+        // ADMIN MANAGEMENT (Admin CRUD) - TAMBAHKAN SECTION INI
+        Route::resource('admins', AdminController::class)->parameters([
+            'admins' => 'admin:id_admin' // Use id_admin as route parameter
+        ]);
+        
+        // Additional Admin Management Actions
+        Route::put('/admins/{admin}/reset-password', [AdminController::class, 'resetPassword'])
+             ->name('admins.reset-password');
+    });
 });

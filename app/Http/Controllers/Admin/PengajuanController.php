@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengajuan;
-use App\Models\detail_peminjaman;
+use App\Models\DetailPeminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +44,7 @@ class PengajuanController extends Controller
 
             $barang->decrement('jumlah', $pengajuan->jumlah);
 
-            detail_peminjaman::create([
+            DetailPeminjaman::create([
                 'id_pengajuan' => $pengajuan->id_pengajuan,
                 'tgl_mulai' => $pengajuan->tgl_mulai,
                 'tgl_selesai' => $pengajuan->tgl_selesai,
