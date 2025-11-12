@@ -8,6 +8,20 @@
         <li><a :href="pengajuanUrl">Pengajuan</a></li>
         <li><a :href="peminjamanUrl">Peminjaman</a></li>
         <li><a :href="laporanUrl">Laporan</a></li>
+        <!-- fitur super admin-->
+        <template v-if="user?.id_role === 1">
+          <li class="super-admin-title">Super Admin</li>
+          <li>
+            <a href="/admin/users">
+              <i class="bi bi-people"></i> Kelola Siswa
+            </a>
+          </li>
+          <li>
+            <a href="/admin/admins">
+              <i class="bi bi-person-gear"></i> Kelola Admin
+            </a>
+          </li>
+        </template>
       </ul>
       <div class="user-dropdown" ref="dropdownRef">
         <a href="#" class="user-name" @click.prevent="toggleDropdown">

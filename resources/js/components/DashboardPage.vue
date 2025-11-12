@@ -58,6 +58,48 @@
         </div>
       </div>
     </div>
+        <!-- Super Admin-->
+        <div v-if="isSuperAdmin" class="super-admin-section" style="margin-top: 2rem;">
+      <h3 class="page-title">Panel Super Admin</h3>
+
+      <div class="stat-grid">
+        <div class="stat-card stat-primary">
+          <div class="stat-content">
+            <div>
+              <h4>Kelola Siswa</h4>
+              <a href="/admin/users" class="btn-outline-small">Lihat</a>
+            </div>
+            <div class="icon-box">
+              <i class="bi bi-people" style="font-size: 2rem;"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-success">
+          <div class="stat-content">
+            <div>
+              <h4>Kelola Admin</h4>
+              <a href="/admin/admins" class="btn-outline-small">Lihat</a>
+            </div>
+            <div class="icon-box">
+              <i class="bi bi-person-gear" style="font-size: 2rem;"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-warning">
+          <div class="stat-content">
+            <div>
+              <h4>Log Aktivitas</h4>
+              <a href="/admin/logs" class="btn-outline-small">Lihat</a>
+            </div>
+            <div class="icon-box">
+              <i class="bi bi-clock-history" style="font-size: 2rem;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Pengajuan Terbaru -->
     <div class="main-content">
