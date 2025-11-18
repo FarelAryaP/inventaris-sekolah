@@ -6,19 +6,19 @@
 
 @vite(['resources/css/barang.css', 'resources/js/app.js'])
 
-<div class="barang-page">
-    <div class="page-header mb-4">
-        <h3>Kelola Barang</h3>
-            <a href="javascript:void(0);" class="btn-primary" id="btnTambah" data-url="{{ route('admin.barang.create') }}">
-                <i class="bi bi-plus-circle"></i> Tambah Barang
-            </a>
+<div class="barang-title">
+    <h3>Kelola Barang</h3>
 
-    </div>
+    <a href="javascript:void(0);" class="btn btn-tambah" id="btnTambah" data-url="{{ route('admin.barang.create') }}">
+        <i class="bi bi-plus-circle"></i> Tambah Barang
+    </a>
+</div>
 
-    <div class="card">
-        <div class="table-wrapper">
-           <table class="barang-table">
-    <thead>
+    <div class="card-pengajuan">
+    <div class="card-body">
+    <div class="table-responsive">
+        <table class="table-pengajuan">
+        <thead class="table-light">
         <tr>
             <th>No</th>
             <th>Nama Barang</th>
@@ -26,8 +26,9 @@
             <th>Keterangan</th>
             <th>Aksi</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+    
+        <tbody>
         @foreach($barangs as $barang)
         <tr>
             {{-- nomor urut, bukan id_barang --}}
@@ -40,44 +41,48 @@
                 </span>
             </td>
             <td>{{ Str::limit($barang->keterangan, 50) ?: '-' }}</td>
+
             <td>
-                <div class="action-buttons">
-                    <button class="btn-outline info btnShow" data-url="{{ route('admin.barang.show', $barang) }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                    </button>
-                    <button class="btn-outline warning btnEdit" data-url="{{ route('admin.barang.edit', $barang) }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 20h9"/>
-                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
-                        </svg>
-                    </button>
-                    <form action="{{ route('admin.barang.destroy', $barang) }}" 
-                          method="POST" 
-                          onsubmit="return confirm('Yakin ingin menghapus barang ini?')"
-                          style="display:inline;">
+            <div class="action-buttons">
+                <button class="btn-outline info btnShow" data-url="{{ route('admin.barang.show', $barang) }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </button>
+
+                <button class="btn-outline warning btnEdit" data-url="{{ route('admin.barang.edit', $barang) }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                    </svg>
+                </button>
+            
+                <form action="{{ route('admin.barang.destroy', $barang) }}" 
+                    method="POST" 
+                    onsubmit="return confirm('Yakin ingin menghapus barang ini?')"
+                    style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-outline danger">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="3 6 5 6 21 6"/>
-                                <path d="M19 6l-2 14H7L5 6"/>
-                                <path d="M10 11v6"/>
-                                <path d="M14 11v6"/>
-                                <path d="M9 6V4h6v2"/>
-                            </svg>
-                        </button>
-                    </form>
-                </div>
+                        
+                <button type="submit" class="btn-outline danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6l-2 14H7L5 6"/>
+                        <path d="M10 11v6"/>
+                        <path d="M14 11v6"/>
+                        <path d="M9 6V4h6v2"/>
+                    </svg>
+                </button>
+                </form>
+            </div>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
+</div>
 
-        </div>
 <div class="pagination-wrapper">
     @if ($barangs->hasPages())
         <nav class="custom-pagination">
@@ -107,7 +112,7 @@
     @endif
 </div>
 
-    </div>
+</div>
 </div>
 
 <!-- ---------- Modal Custom ---------- -->
@@ -115,7 +120,7 @@
   <div class="custom-modal-content" role="document">
     <div class="custom-modal-header">
       <h5 id="modalTitle">Loading...</h5>
-      <button class="close-modal" id="closeModal" aria-label="Tutup">&times;</button>
+
     </div>
     <div class="custom-modal-body" id="modalContent">
       <div class="modal-loader">Memuat data...</div>
@@ -137,14 +142,18 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
     }
+
     function hideModal() {
         modal.classList.remove('show');
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
     }
 
-    // Tombol close (×)
-    closeModalBtn.addEventListener('click', hideModal);
+    // Tombol close (×) — AMAN jika tombol dihapus
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', hideModal);
+    }
+
     // Klik di area gelap (backdrop)
     modal.addEventListener('click', function(e) {
         if (e.target === modal) hideModal();
@@ -203,28 +212,30 @@ document.addEventListener('DOMContentLoaded', function() {
         loadModal(url, title);
     });
 
-   function attachModalFormHandlers() {
-    const form = modalContent.querySelector('form');
-    if (form) {
-        const btnBatal = form.querySelector('.btn-secondary');
-        if (btnBatal) {
-            btnBatal.addEventListener('click', function(e) {
+    // === TOMBOL DI DALAM PARTIAL (BATAL / TUTUP) ===
+    function attachModalFormHandlers() {
+        const form = modalContent.querySelector('form');
+        if (form) {
+            const btnBatal = form.querySelector('.btn-secondary');
+            if (btnBatal) {
+                btnBatal.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    hideModal();
+                });
+            }
+        }
+
+        // Tombol "Tutup" dari partial show
+        const btnTutup = modalContent.querySelector('.close-modal');
+        if (btnTutup) {
+            btnTutup.addEventListener('click', function(e) {
                 e.preventDefault();
                 hideModal();
             });
         }
     }
 
-    // Tombol "Tutup" di halaman show
-    const btnTutup = modalContent.querySelector('.close-modal');
-    if (btnTutup) {
-        btnTutup.addEventListener('click', function(e) {
-            e.preventDefault();
-            hideModal();
-        });
-    }
-}
-    console.log('Modal script aktif.');
+    console.log('Modal script aktif & aman.');
 });
 </script>
 

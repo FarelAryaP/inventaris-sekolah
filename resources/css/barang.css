@@ -1,75 +1,96 @@
-.barang-page {
-  margin-left: 230px;
-  padding: 2rem;
-  min-height: 50vh;
-  border-radius: 35px;
+/* Container title */
+.barang-title {
+    display: flex;
+    width: 72%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 22%;
+    padding: 16px 18px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #e3eeff 0%, #98bed463 100%);
 }
 
-.page-header { 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Title */
+.barang-title h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #4d5868;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.page-header h3 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: white;
+/* Success button (flat style) */
+.btn-tambah {
+    background: #4ad97a;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 6px;
+    transition: 0.25s ease;
+    box-shadow: 0 5px 2px 0 rgba(0, 0, 0, 0.250);
 }
 
-.btn-primary {
-  background-color: #FFFD93;
-  color: #5B6676;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background 0.3s;
+.btn-tambah:hover {
+    background: #37c168;
 }
 
-.btn-primary:hover {
-  background-color: #ebe85b;
+.btn-tambah i {
+    font-size: 1.2rem;
+    color: white;
 }
 
-.card {
-  background-color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 1.5rem;
+/* Card */
+.card-barang {
+    background: #ffffff50;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    width: 76%;
+    margin: 0 21.5%;
 }
 
-.table-wrapper {
-  overflow-x: auto;
+/* Table */
+.table-barang {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
 }
 
-.barang-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
+/* Header */
+.table-barang thead tr {
+    background: #d9e7fd; 
+    color: #003366;
+    font-weight: 600;
 }
 
-.barang-table thead {
-  background-color: #eef2ff;
+.table-barang th {
+    padding: 14px;
+    border: none;
+    text-align: center;
 }
 
-.barang-table th {
-  text-align: left;
-  padding: 0.8rem;
-  font-weight: 600;
-  color: #555;
-  font-size: 0.95rem;
+/* Body Rows */
+.table-barang tbody tr {
+    background: #f5faff; 
+    border-bottom: 1px solid transparent;
+    transition: 0.25s ease;
 }
 
-.barang-table td {
-  padding: 0.8rem;
-  border-top: 1px solid #eee;
-  font-size: 0.92rem;
-  color: #333;
+.table-barang tbody tr:hover {
+    background: #e1ecff;
 }
 
-.barang-table tr:hover {
-  background-color: #f9fafc;
-  transition: 0.3s;
+.table-barang td {
+    padding: 14px;
+    border: none;
+    text-align: center;
 }
 
 .badge {
@@ -212,7 +233,7 @@
   display: none;
   position: fixed;
   z-index: 9999;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  inset: 0;
   background: rgba(0,0,0,0.5);
   align-items: center;
   justify-content: center;
@@ -224,10 +245,10 @@
 }
 
 .custom-modal-content {
-  background: #fff;
+  background: #f0f0fc;
   border-radius: 12px;
-  width: 100%;
-  max-width: 760px;
+  width: 80%;
+  max-width: 700px;
   box-shadow: 0 8px 30px rgba(2,6,23,0.2);
   animation: fadeInUp 0.28s ease;
   display: flex;
@@ -237,32 +258,21 @@
 }
 
 .custom-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-  padding: 1rem 1.25rem;
-  background: #fbfbff;
+  font-size: 1.4rem;
+  padding: 0 4rem;
+  background: #c3d6ee;
 }
 
 .custom-modal-body {
-  padding: 1rem 1.25rem;
+  padding: 1rem 4rem;
   overflow-y: auto;
 }
 
 /* loader center */
 .modal-loader {
-  padding: 3rem 0;
+  padding: 1.5rem 0;
   text-align: center;
   color: #666;
-}
-
-/* close button */
-.close-modal {
-  border: none;
-  background: none;
-  font-size: 1.25rem;
-  cursor: pointer;
 }
 
 /* small responsive */
@@ -275,88 +285,96 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-body, html {
-  overflow-x: hidden;
-}
-
 /* form-create */
 .form-barang {
   font-family: 'Poppins', sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
   padding: 1rem;
 }
 
+/* Grup Form */
 .form-group {
   display: flex;
   flex-direction: column;
 }
 
 .form-group label {
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 6px;
-  color: #333;
+  color: #295980;
 }
 
 .form-group .required {
-  color: red;
+  color: #E63946;
   font-weight: 600;
 }
 
 .form-group input,
 .form-group textarea {
-  padding: 0.6rem 0.8rem;
-  border: 1.5px solid #ddd;
-  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  border: 1.6px solid #a6b8cc;
+  border-radius: 10px;
   font-size: 0.95rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #F8FBFF;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.230);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #80B3FF;
+  border-color: #4D9CFF;
+  background: #edf5ff;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(128, 179, 255, 0.25);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.250);
 }
 
+/* Tombol Actions */
 .form-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.6rem;
+  gap: 0.7rem;
   margin-top: 1rem;
 }
 
+/* Tombol */
 .btn-primary2,
 .btn-secondary {
   font-family: 'Poppins', sans-serif;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 0.50rem 1.2rem;
+  border-radius: 10px;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   border: none;
+  font-weight: 500;
+  margin: 1rem 0;
 }
 
+/* Tombol Submit */
 .btn-primary2 {
-  background-color: #FFFD93;
-  color: #5B6676;
-  size: small;
+  background-color: #4D9CFF;
+  color: white;
+  box-shadow: 0 4px 10px rgba(77, 156, 255, 0.25);
 }
 
 .btn-primary2:hover {
-  background-color: #ebe85b;
-  transform: translateY(-1px);
+  background-color: #3C86E6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(60, 134, 230, 0.35);
 }
 
+/* Tombol Tutup */
 .btn-secondary {
-  background-color: #eee;
-  color: #333;
+  background-color: #ffad87;
+  color: #ffffff;
 }
 
 .btn-secondary:hover {
-  background-color: #ddd;
+  background-color: #ec966e;
+  transform: translateY(-1px);
 }

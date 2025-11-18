@@ -1,37 +1,34 @@
 <template>
-  <div class="laporan-container">
-    <div class="title-laporan mb-3">
-      <h3>Laporan Peminjaman</h3>
+  <div class="laporan-title">
+      <h2>Laporan Peminjaman</h2>
     </div>
 
     <!-- Summary Cards -->
     <div class="info-card">
-      <div class="column-card" style="background: #dff3ff">
+      <div class="column-card" style="background: #c0e2f5; box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.260);">
         <h4>{{ dataPeminjamans.length }}</h4>
         <p class="title-section">Total Peminjaman</p>
       </div>
-      <div class="column-card" style="background: #ffe090;">
+      <div class="column-card" style="background: #f0dba6; box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.260);">
         <h4>{{ sedangDipinjam }}</h4>
         <p class="title-section">Sedang Dipinjam</p>
       </div>
-      <div class="column-card" style="background: #63ffc6">
+      <div class="column-card" style="background: #b5f5dd; box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.260);">
         <h4>{{ dikembalikan }}</h4>
         <p class="title-section">Dikembalikan</p>
       </div>
-      <div class="column-card" style="background: #ffa397">
+      <div class="column-card" style="background: #f7b7ae; box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.260);">
         <h4>{{ hilang }}</h4>
         <p class="title-section">Hilang</p>
       </div>
     </div>
 
     <!-- Table -->
-      <div class="card-header">
-        <h5 class="card-title mb-0"></h5>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table-name">
-            <thead>
+    <div class="card-laporan">
+    <div class="card-body">
+    <div class="table-responsive">
+        <table class="table-laporan">
+        <thead class="table-light">
               <tr>
                 <th>No</th>
                 <th>Siswa</th>

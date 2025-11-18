@@ -1,50 +1,71 @@
-.pengajuan-page {
-  padding: 2rem;
-  margin-left: 230px;
+/* Container title */
+.pengajuan-title {
+    display: flex;
+    width: 72%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 22%;
+    padding: 16px 18px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #e3eeff 0%, #98bed463 100%);
 }
 
-.page-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  color: #fff;
+/* Title */
+.pengajuan-title h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #4d5868;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  overflow: hidden;
+/* Card */
+.card-pengajuan {
+    background: #ffffff50;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    width: 76%;
+    margin: 0 21.5%;
 }
 
-.card-body {
-  padding: 1.5rem;
+/* Table */
+.table-pengajuan {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
 }
 
-.table-wrapper {
-  overflow-x: auto;
+/* Header */
+.table-pengajuan thead tr {
+    background: #d9e7fd; 
+    color: #003366;
+    font-weight: 600;
 }
 
-.custom-table {
-  width: 100%;
-  border-collapse: collapse;
+.table-pengajuan th {
+    padding: 14px;
+    border: none;
+    text-align: center;
 }
 
-.custom-table th,
-.custom-table td {
-  padding: 0.9rem 1rem;
-  border-bottom: 1px solid #eee;
-  text-align: left;
+/* Body Rows */
+.table-pengajuan tbody tr {
+    background: #f5faff; 
+    border-bottom: 1px solid transparent;
+    transition: 0.25s ease;
 }
 
-.custom-table thead {
-  background: #f5f8ff;
+.table-pengajuan tbody tr:hover {
+    background: #e1ecff;
 }
 
-.custom-table th {
-  color: #333;
-  font-weight: 600;
-  font-size: 0.9rem;
+.table-pengajuan td {
+    padding: 14px;
+    border: none;
+    text-align: center;
 }
 
 .text-muted {
@@ -196,4 +217,3 @@
 .fst-italic {
   font-style: italic;
 }
-

@@ -1,12 +1,11 @@
 <template>
-  <div class="peminjaman-page">
-    <!-- Header -->
-    <div class="page-header">
+  <div class="peminjaman-title">
       <h3>Kelola Peminjaman</h3>
+      
       <a :href="laporanUrl" class="btn-info">
         <i class="bi bi-file-earmark-text"></i> Laporan
       </a>
-    </div>
+  </div>
 
     <!-- Statistik -->
     <div class="stats-grid">
@@ -29,10 +28,11 @@
     </div>
 
     <!-- Tabel -->
-    <div class="card">
-      <div class="table-wrapper">
-        <table>
-          <thead>
+  <div class="card-peminjaman">
+  <div class="card-body">
+  <div class="table-responsive">
+    <table class="table-peminjaman">
+    <thead class="table-light">
             <tr>
               <th>ID</th>
               <th>Siswa</th>
@@ -106,6 +106,7 @@
           </tbody>
         </table>
       </div>
+    </div>
 
       <!-- Pagination -->
       <!-- Pagination -->
@@ -175,7 +176,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup>

@@ -3,17 +3,14 @@
 @section('title', 'Edit Admin')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="header-edit">
     <h2>
-        <i class="bi bi-person-gear"></i> Edit Admin: {{ $admin->nama }}
+        Edit Admin: {{ $admin->nama }}
     </h2>
-    <a href="{{ route('admin.admins.index') }}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left"></i> Kembali
-    </a>
 </div>
 
-<div class="card shadow-sm">
-    <div class="card-body">
+<div class="card-edit-section">
+    <div class="card-body-edit">
         <form action="{{ route('admin.admins.update', $admin) }}" method="POST">
             @csrf
             @method('PUT')

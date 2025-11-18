@@ -1,28 +1,80 @@
-.laporan-container {
-  font-family: 'Poppins';
-  color: #5B6676;
-  padding: 2rem;
-  margin-left: 230px;
-  overflow: hidden;
-  box-sizing: border-box;
+/* Container title */
+.laporan-title {
+    display: flex;
+    width: 72%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 22%;
+    padding: 16px 18px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #e3eeff 0%, #98bed463 100%);
 }
 
-.title-laporan h3 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #fff;
-  text-align: left;
+/* Title */
+.laporan-title h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #4d5868;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
+/* Card */
+.card-laporan {
+    background: #ffffff50;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    width: 78%;
+    margin: 0 20.5%;
+}
+
+/* Table */
+.table-laporan {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+/* Header */
+.table-laporan thead tr {
+    background: #d9e7fd; 
+    color: #003366;
+    font-weight: 600;
+}
+
+.table-laporan th {
+    padding: 14px;
+    border: none;
+    text-align: center;
+}
+
+/* Body Rows */
+.table-laporan tbody tr {
+    background: #f5faff; 
+    border-bottom: 1px solid transparent;
+    transition: 0.25s ease;
+}
+
+.table-laporan tbody tr:hover {
+    background: #e1ecff;
+}
+
+.table-laporan td {
+    padding: 14px;
+    border: none;
+    text-align: center;
 }
 
 /* Summary Cards */
 .info-card {
-height: 110px;
+  width: 70%;
   display: grid;
-  gap: 1rem;
-  margin-top: 1%;
-  margin-bottom: 1.5rem;
-  padding: 1.5rem 0;
+  gap: 1.2rem;
+  margin-left: 24%;
+  padding: 1.2rem 0;
   border-radius: 15px;
   justify-content: flex-start;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -30,7 +82,7 @@ height: 110px;
 
 .column-card {
   color: #5B6676;
-  padding: 1.9rem;
+  padding: 1.5rem;
   border-radius: 12px;
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -52,51 +104,6 @@ height: 110px;
   letter-spacing: 0.04em;
 }
 
-.card-body {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  padding: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card-body:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.table-responsive {
-  overflow-x: auto;
-}
-
-.table-name {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-}
-
-/* Header */
-.table-name thead th {
-  background: #f8f9fa;
-  font-weight: 600;
-  color: #5B6676;
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-}
-
-/* Body */
-.table-name tbody td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-  color: #5B6676;
-}
-
-
 /* Badge style (status) */
 .badge {
   padding: 0.3rem 0.6rem;
@@ -106,17 +113,17 @@ height: 110px;
 }
 
 .bg-primary {
-  background: #ffe090;
+  background: #f0dba6;
   color: #5B6676;
 }
 
 .bg-success {
-  background: #63ffc6;
+  background: #b5f5dd;
   color: #5B6676;
 }
 
 .bg-warning {
-  background: #ffa397;
+  background: #f7b7ae;
   color: #5B6676;
 }
 

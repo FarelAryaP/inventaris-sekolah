@@ -1,31 +1,44 @@
-.peminjaman-page {
-  padding: 2rem;
-  margin-left: 230px;
-  color: #5B6676;
+/* Container title */
+.peminjaman-title {
+    display: flex;
+    width: 72%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 22%;
+    padding: 16px 18px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #e3eeff 0%, #98bed463 100%);
 }
 
-/* Header */
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
+/* Title */
+.peminjaman-title h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #4d5868;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-.page-header h3 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #fff;
-}
+
 .btn-info {
-  background: #17a2b8;
-  color: #fff;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  transition: 0.2s;
+    background: #80b1b8;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 6px;
+    transition: 0.25s ease;
+    box-shadow: 0 5px 2px 0 rgba(0, 0, 0, 0.250);
 }
+
 .btn-info:hover {
-  background: #138496;
+    background: #117483;
 }
 
 /* Statistik */
@@ -33,7 +46,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  width: 70%;
+  margin-left: 24%;
+  padding: .70rem 0 1.5rem 0;
 }
 .stat-card {
   border-radius: 12px;
@@ -43,59 +58,84 @@
 }
 .bg-primary {
   background: #007bff;
+  box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.260);
 }
 .bg-success {
   background: #28a745;
+  box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.260);
 }
 .bg-warning {
   background: #ffc107;
+  box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.260);
   color: #333;
 }
 .bg-info {
-  background: #dff3ff;
+  background: #c0e2f5;
   color: #5B6676;
+  box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.260);
+}
+
+/* Card */
+.card-peminjaman {
+    background: #ffffff50;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    width: 76%;
+    margin: 0 21.5%;
 }
 
 /* Table */
-.card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  padding: 1.5rem;
+.table-peminjaman {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
 }
-.table-wrapper {
-  overflow-x: auto;
+
+/* Header */
+.table-peminjaman thead tr {
+    background: #d9e7fd; 
+    color: #003366;
+    font-weight: 600;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
+
+.table-peminjaman th {
+    padding: 14px;
+    border: none;
+    text-align: center;
 }
-th,
-td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid #eee;
+
+/* Body Rows */
+.table-peminjaman tbody tr {
+    background: #f5faff; 
+    border-bottom: 1px solid transparent;
+    transition: 0.25s ease;
 }
-th {
-  background: #f8f9fa;
-  font-weight: 600;
+
+.table-peminjaman tbody tr:hover {
+    background: #e1ecff;
 }
+
+.table-peminjaman td {
+    padding: 14px;
+    border: none;
+    text-align: center;
+}
+
 .badge {
   padding: 0.3rem 0.6rem;
   border-radius: 6px;
   font-size: 0.85rem;
 }
 .bg-primary {
-  background: #ffe090;
+  background-color: #f0dba6;
   color: #5B6676;
 }
 .bg-success {
-  background: #63ffc6;
+  background: #b5f5dd;
   color: #5B6676;
 }
 .bg-warning {
-  background: #ffa397;
+  background: #f7b7ae;
   color: #5B6676;
 }
 /* Tombol aksi sejajar rapi */
@@ -202,12 +242,12 @@ svg {
   z-index: 9999;
 }
 .modal-box {
-  background: #fff;
+  background: #cfecff;
   color: #222;
   border-radius: 12px;
   width: 80%;
   max-width: 800px;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 2.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
   animation: fadeIn 0.25s ease;
 }
@@ -215,10 +255,11 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 .close-btn {
-  font-size: 1.5rem;
+  font-size: 2rem;
   background: none;
   border: none;
   cursor: pointer;

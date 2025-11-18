@@ -59,47 +59,35 @@
       </div>
     </div>
         <!-- Super Admin-->
-        <div v-if="isSuperAdmin" class="super-admin-section" style="margin-top: 2rem;">
-      <h3 class="page-title">Panel Super Admin</h3>
+<div v-if="isSuperAdmin" class="super-admin-section" style="margin-top: 2rem;">
+  <h4 class="page-title">Super Admin</h4>
 
-      <div class="stat-grid">
-        <div class="stat-card stat-primary">
-          <div class="stat-content">
-            <div>
-              <h4>Kelola Siswa</h4>
-              <a href="/admin/users" class="btn-outline-small">Lihat</a>
-            </div>
-            <div class="icon-box">
-              <i class="bi bi-people" style="font-size: 2rem;"></i>
-            </div>
-          </div>
+  <div class="stat-grid">
+    <div class="stat-card stat-superadmin-1">
+      <div class="stat-content">
+        <div>
+          <h4>Kelola Siswa</h4>
+          <a href="/admin/users" class="btn-outline-small">Lihat</a>
         </div>
-
-        <div class="stat-card stat-success">
-          <div class="stat-content">
-            <div>
-              <h4>Kelola Admin</h4>
-              <a href="/admin/admins" class="btn-outline-small">Lihat</a>
-            </div>
-            <div class="icon-box">
-              <i class="bi bi-person-gear" style="font-size: 2rem;"></i>
-            </div>
-          </div>
-        </div>
-
-        <div class="stat-card stat-warning">
-          <div class="stat-content">
-            <div>
-              <h4>Log Aktivitas</h4>
-              <a href="/admin/logs" class="btn-outline-small">Lihat</a>
-            </div>
-            <div class="icon-box">
-              <i class="bi bi-clock-history" style="font-size: 2rem;"></i>
-            </div>
-          </div>
+        <div class="icon-box">
+          <i class="bi bi-people" style="font-size: 2rem;"></i>
         </div>
       </div>
     </div>
+
+    <div class="stat-card stat-superadmin-2">
+      <div class="stat-content">
+        <div>
+          <h4>Kelola Admin</h4>
+          <a href="/admin/admins" class="btn-outline-small">Lihat</a>
+        </div>
+        <div class="icon-box">
+          <i class="bi bi-person-gear" style="font-size: 2rem;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- Pengajuan Terbaru -->
     <div class="main-content">
@@ -165,6 +153,8 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
   admin: Object,
   stats: Object,
@@ -172,11 +162,16 @@ const props = defineProps({
   barangStokRendah: Array
 })
 
+// Cek apakah user adalah super admin
+const isSuperAdmin = computed(() => props.admin?.id_role === 1)
+
 const formatTanggal = (tgl) => {
   const d = new Date(tgl)
   return d.toLocaleDateString('id-ID')
 }
+
 </script>
+
 
 <style scoped>
 /* bisa pakai css dashboard-admin.css */

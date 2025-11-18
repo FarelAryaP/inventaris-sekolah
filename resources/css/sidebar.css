@@ -134,3 +134,36 @@ body{
   transform: translateY(-10px);
 }
 
+.submenu {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.submenu li a {
+  display: block;
+  color: #5B6676;
+  font-size: 0.95rem;
+  padding: 4px 0;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.submenu li a:hover {
+  color: #fff;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdown-toggle svg {
+  transition: transform 0.3s;
+}
+
+.dropdown-toggle svg.rotate {
+  transform: rotate(180deg);
+}
