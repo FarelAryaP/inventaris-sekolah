@@ -3,36 +3,22 @@
 @section('title', 'Edit Siswa')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3">
-                <i class="bi bi-pencil-square"></i> Edit Data Siswa
-            </h1>
-            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Kembali
-            </a>
-        </div>
+<div class="card-edit-siswa">
+    <div class="card-header">
+        <h5>Form Edit Data Siswa</h5>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Form Edit Data Siswa</h5>
-            </div>
-            <div class="card-body">
-                <form action="{{ route('admin.users.update', $user) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+            
+    <div class="card-body">
+        <form action="{{ route('admin.users.update', $user) }}" method="POST">
+        @csrf
+        @method('PUT')
                     
                     <div class="mb-3">
                         <label for="nisn" class="form-label">NISN</label>
                         <input type="number" class="form-control" id="nisn" 
                                value="{{ $user->nisn }}" readonly disabled>
                         <div class="form-text">
-                            <i class="bi bi-lock"></i> NISN tidak dapat diubah
+                            NISN tidak dapat diubah
                         </div>
                     </div>
 
@@ -59,7 +45,6 @@
                     <hr class="my-4">
 
                     <div class="alert alert-warning">
-                        <i class="bi bi-exclamation-triangle"></i>
                         <strong>Perhatian:</strong> Kosongkan field password jika tidak ingin mengubahnya. 
                         Untuk reset password, gunakan tombol "Reset Password" di halaman daftar siswa.
                     </div>
@@ -84,7 +69,7 @@
                                placeholder="Ketik ulang password baru">
                     </div>
 
-                    <div class="d-flex gap-2 mt-4">
+                    <div class="box-btn">
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-save"></i> Update
                         </button>
@@ -97,72 +82,4 @@
         </div>
     </div>
 
-    <div class="col-lg-4">
-        <div class="card border-primary">
-            <div class="card-header bg-primary text-white">
-                <h6 class="card-title mb-0">
-                    <i class="bi bi-person-badge"></i> Info Siswa
-                </h6>
-            </div>
-            <div class="card-body">
-                <table class="table table-sm table-borderless">
-                    <tr>
-                        <td class="fw-bold">NISN:</td>
-                        <td><code>{{ $user->nisn }}</code></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Nama:</td>
-                        <td>{{ $user->nama }}</td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Kelas:</td>
-                        <td><span class="badge bg-info">{{ $user->kelas }}</span></td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Terdaftar:</td>
-                        <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
-                    </tr>
-                    <tr>
-                        <td class="fw-bold">Update Terakhir:</td>
-                        <td>{{ $user->updated_at->format('d/m/Y H:i') }}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="card border-warning mt-3">
-            <div class="card-header bg-warning">
-                <h6 class="card-title mb-0">
-                    <i class="bi bi-clock-history"></i> Statistik Pengajuan
-                </h6>
-            </div>
-            <div class="card-body">
-                <table class="table table-sm table-borderless mb-0">
-                    <tr>
-                        <td>Total Pengajuan:</td>
-                        <td class="text-end"><strong>{{ $user->pengajuan->count() }}</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Pending:</td>
-                        <td class="text-end">
-                            <span class="badge bg-warning">{{ $user->pengajuan->where('status', 0)->count() }}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Approved:</td>
-                        <td class="text-end">
-                            <span class="badge bg-success">{{ $user->pengajuan->where('status', 1)->count() }}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Rejected:</td>
-                        <td class="text-end">
-                            <span class="badge bg-danger">{{ $user->pengajuan->where('status', 2)->count() }}</span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

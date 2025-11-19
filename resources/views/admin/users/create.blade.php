@@ -9,9 +9,6 @@
             <h1 class="h3">
                 <i class="bi bi-person-plus"></i> Tambah Siswa Baru
             </h1>
-            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Kembali
-            </a>
         </div>
     </div>
 </div>
@@ -80,14 +77,15 @@
                                placeholder="Ketik ulang password" required>
                     </div>
 
-                    <div class="d-flex gap-2 mt-4">
-                        <button type="submit" class="btn btn-success">
-                            <i class="bi bi-save"></i> Simpan
+                    <div class="box-btn">
+                        <button type="submit" class="btn btn-create">
+                             Simpan
                         </button>
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
-                            <i class="bi bi-x-circle"></i> Batal
+                        <a href="{{ route('admin.users.index') }}" class="btn btn-cancel">
+                             Batal
                         </a>
                     </div>
+                    
                 </form>
             </div>
         </div>

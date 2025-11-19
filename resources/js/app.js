@@ -4,6 +4,7 @@ import '../css/barang.css';
 import '../css/style.css';
 import '../css/pengajuan.css';
 import '../css/kelola-admin.css';
+import '../css/kelola-siswa.css';
 import { createApp } from 'vue';
 
 import Sidebar from './components/sidebar.vue';

@@ -170,6 +170,11 @@
   border-color: #ff6b6b;
 }
 
+.btn-outline btn {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
 td form {
     display: inline-block;
     margin: 0;
@@ -453,6 +458,7 @@ td form {
 }
 
 .btn-primary {
+    font-family: 'Poppins';
     background: #6e8eff;
     border: none;
     padding: 14px 16px;

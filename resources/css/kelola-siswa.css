@@ -1,0 +1,463 @@
+.custom-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none; /* <-- MENUTUP MODAL SAAT LOAD */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-box h3 {
+    margin: 0 5%;
+    padding: 20px 0;
+}
+.custom-modal-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    width: 420px;
+    position: relative;
+    animation: fadeIn 0.25s ease;
+}
+
+.closeCustomModal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Container title */
+.siswa-title {
+    display: flex;
+    width: 72%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 22%;
+    padding: 16px 18px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #e3eeff 0%, #98bed463 100%);
+}
+
+/* Title */
+.siswa-title h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #4d5868;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Card */
+.card-siswa {
+    background: #ffffff50;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    width: 75%;
+    margin: 0 22%;
+}
+
+/* Table */
+.table-siswa {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+/* Header */
+.table-siswa thead tr {
+    background: #d9e7fd; 
+    color: #003366;
+    font-weight: 600;
+}
+
+.table-siswa th {
+    padding: 14px;
+    border: none;
+    text-align: center;
+}
+
+/* Body Rows */
+.table-siswa tbody tr {
+    background: #f5faff; 
+    border-bottom: 1px solid transparent;
+    transition: 0.25s ease;
+}
+
+.table-siswa tbody tr:hover {
+    background: #e1ecff;
+}
+
+.table-siswa td {
+    padding: 14px;
+    border: none;
+    text-align: center;
+}
+
+/* Buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.25s;
+  padding: 0; 
+}
+
+.btn-outline svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-outline:focus,
+.btn-outline:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-outline.info {
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.btn-outline.warning {
+  color: #eab308;
+  border-color: #eab308;
+}
+
+.btn-outline.danger {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.btn-outline:hover {
+  transform: translateY(-2px);
+  background-color: currentColor;
+}
+
+.btn-outline:hover svg {
+  color: white;
+}
+
+.btn-outline.info {
+  color: #80b3ff;
+  border-color: #80b3ff;
+}
+
+.btn-outline.warning {
+  color: #ffd06b;
+  border-color: #ffd06b;
+}
+
+.btn-outline.danger {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+td form {
+    display: inline-block;
+    margin: 0;
+}
+
+.card-footer-custom {
+    padding: 10px 12px;
+    font-size: 1rem;
+    color: #6c7a91; 
+    display: flex;
+    margin-left: 45%;
+    justify-content: flex-start; 
+}
+
+/*edit siswa*/
+.card-edit-siswa {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 73, 151, 0.10);
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+.card-edit-siswa .card-header {
+    background: #e3eeff;
+    padding: 18px 22px;
+    border-bottom: 1px solid #d1dff7;
+}
+
+.card-edit-siswa .card-header h5 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: #0d47a1;
+}
+
+.card-edit-siswa .card-body {
+    padding: 25px 26px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #0d47a1;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px;
+    border: 2px solid #b6cdf1;
+    transition: 0.25s;
+    margin-top: 6px; 
+    margin-bottom: 14px;
+}
+
+.form-control:focus {
+    border-color: #0d47a1;
+    box-shadow: inset 0 4px 6px rgba(13, 71, 161, 0.25);
+}
+
+.form-control[disabled] {
+    background: #f1f5ff;
+    border-color: #c6d8ff;
+}
+
+.form-text {
+    font-size: 13px;
+    margin-top: -6px;
+    margin-bottom: 10px;
+    color: #375a9e;
+}
+
+.alert-warning {
+    background: #fff7e6;
+    border-left: 4px solid #ffb300;
+    color: #8a6d3b;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.box-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;         
+    margin-top: 20px;   
+    margin-right: 22%;
+    text-decoration: none;
+}
+
+/* Tombol Primary */
+.btn-primary-edit, .btn-create {
+    font-family: 'Poppins';
+    color: white;
+    background: #6e8eff;
+    border-color: #6e8eff;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.25s;
+    font-size: 0.85rem;
+}
+
+.btn-primary-edit:hover, .btn-create:hover {
+    background: #5a75d4;
+    border-color: #5a75d4;
+}
+
+/* Tombol Secondary */
+.btn-secondary, .btn-cancel {
+    text-decoration: none;
+    color: #222;
+    background: #b0bec5;
+    border-color: #b0bec5;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.25s;
+    font-size: 0.95rem;
+}
+
+.btn-secondary:hover, .btn-cancel:hover {
+    background: #90a4ae;
+}
+
+hr {
+    border-top: 1px solid #c8d8f2;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/*info-siswa*/
+.card-body-siswa {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    padding: 10px 0;
+    top: 30px;
+    bottom: 20px;
+    border-radius: 12px;
+}
+
+.card-body-siswa .nama {
+    margin: 0;
+    font-weight: 600;
+}
+
+.card-body-siswa .nisn {
+    margin: 0;
+}
+
+.card-body-siswa .kelas {
+    margin-top: 4px;
+}
+
+.card-body-siswa .tanggal {
+    margin-top: 4px;
+    display: block;
+}
+
+.card.border-primary {
+    border: 1px solid #8cb7e7 !important;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.card-header.bg-primary {
+    background: #8cb7e7 !important;
+    border-bottom: none;
+}
+
+.card-header h6 {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.card-body table td {
+    padding: 6px 4px !important;
+}
+
+.card.border-warning {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card-header.bg-warning {
+    background: #f8a7a7 !important;
+    color: #000;
+    font-weight: 600;
+}
+
+.card-riwayat {
+    margin-top: 30px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+}
+
+.card-header-riwayat {
+    background: #95f38d;
+    padding: 16px 20px;
+}
+
+.card-header-riwayat h5 {
+    margin: 0;
+    color: white;
+    font-weight: 600;
+}
+
+.table-riwayat {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.table-riwayat th {
+    background: #e3f2fd;
+    color: #0d47a1;
+    padding: 10px;
+    font-weight: 600;
+    border-bottom: 1px solid #bbdefb;
+}
+
+.table-riwayat td {
+    padding: 10px;
+    border-bottom: 1px solid #e3eaf5;
+}
+
+.table-riwayat tr:hover {
+    background: #f1f7ff;
+}
+
+.btn-outline-primary {
+    border-color: #1565c0;
+    color: #1565c0;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.btn-outline-primary:hover {
+    background: #1565c0;
+    color: white;
+}
+
+.card-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 25px;
+}
+
+.card-summary .card {
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.card-summary .card h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.card-summary .bg-light {
+    background: #e3f2fd !important;
+}
+
+.card-summary .bg-warning {
+    background: #ffecb3 !important;
+}
+
+.card-summary .bg-success {
+    background: #c8e6c9 !important;
+}
+
+.card-summary .bg-danger {
+    background: #ffcdd2 !important;
+}
+
+.card-summary small {
+    font-size: 0.9rem;
+    color: #455a64 !important;
+}
