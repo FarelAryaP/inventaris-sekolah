@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class detail_peminjaman extends Model
+class DetailPeminjaman extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,7 +15,10 @@ class detail_peminjaman extends Model
     protected $fillable = [
         'id_pengajuan', 'tgl_mulai', 'tgl_selesai', 'status'
     ];
-    protected $dates = ['tgl_mulai', 'tgl_selesai'];
+    protected $casts = [
+        'tgl_mulai' => 'date',
+        'tgl_selesai' => 'date',
+    ];
 
     public function pengajuan()
     {

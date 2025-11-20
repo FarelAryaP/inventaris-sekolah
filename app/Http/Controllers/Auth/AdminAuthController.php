@@ -17,25 +17,27 @@ class AdminAuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username' => 'required',
-            'password' => 'required'
+            'username' => 'required|string',
+            'password' => 'required|string',
         ]);
 
-        $admin = Admin::where('username', $credentials['username'])->first();
+        $remember = $request->boolean('remember');
 
-        if ($admin && Hash::check($credentials['password'], $admin->password)) {
-            Auth::guard('admin')->login($admin);
+        if (Auth::guard('admin')->attempt($credentials, $remember)) {
+            $request->session()->regenerate();
             return redirect()->intended('/admin/dashboard');
         }
 
         return back()->withErrors([
             'username' => 'Username atau password salah.',
-        ]);
+        ])->withInput($request->only('username'));
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/admin/login');
     }
 }

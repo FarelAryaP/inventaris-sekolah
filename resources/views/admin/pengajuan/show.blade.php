@@ -107,7 +107,7 @@
         </div>
         @endif
 
-        <!-- Info Peminjaman jika sudah approved -->
+        
         @if($pengajuan->status == 1 && $pengajuan->detailPeminjaman)
         <div class="card">
             <div class="card-header">

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -18,25 +17,68 @@ class UserAuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'nisn' => 'required',
-            'password' => 'required'
+            'nisn' => 'required|numeric',
+            'password' => 'required|string',
         ]);
 
-        $user = User::where('nisn', $credentials['nisn'])->first();
+        $remember = $request->boolean('remember');
 
-        if ($user && Hash::check($credentials['password'], $user->password)) {
-            Auth::guard('user')->login($user);
-            return redirect()->intended('/user/dashboard');
+        if (Auth::guard('user')->attempt($credentials, $remember)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard');
         }
-
+        
         return back()->withErrors([
             'nisn' => 'NISN atau password salah.',
-        ]);
-    }
+            ])->withInput($request->except('password'));
+        }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard('user')->logout();
+
         return redirect('/login');
     }
+
+    public function showResetPasswordForm()
+    {
+        return view('user.password.reset');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|string',
+            'new_password' => 'required|string|min:8|confirmed',
+        ], [
+            'current_password.required' => 'Password saat ini wajib diisi.',
+            'new_password.required' => 'Password baru wajib diisi.',
+            'new_password.min' => 'Password baru minimal 8 karakter.',
+            'new_password.confirmed' => 'Konfirmasi password tidak cocok.',
+        ]);
+
+        $user = Auth::guard('user')->user();
+
+        // Verifikasi password 
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors([
+                'current_password' => 'Password saat ini salah.'
+            ]);
+        }
+
+        // Pastikan password baru berbeda
+        if (Hash::check($request->new_password, $user->password)) {
+            return back()->withErrors([
+                'new_password' => 'Password baru tidak boleh sama dengan password lama.'
+            ]);
+        }
+
+        // Update password
+        $user->update([
+            'password' => $request->new_password
+        ]);
+
+        return back()->with('success', 'Password berhasil diperbarui!');
+    }
+    
 }
