@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
@@ -117,13 +117,13 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        // Prevent deleting self
-        if ($admin->id_admin === auth()->guard('admin')->id()) {
+        $currentAdmin = Auth::guard('admin')->user();
+        
+        if ($admin->id_admin === $currentAdmin->id_admin) {
             return redirect()->route('admin.admins.index')
                 ->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
         }
 
-        // Check if admin has related pengajuan
         if ($admin->pengajuan()->count() > 0) {
             return redirect()->route('admin.admins.index')
                 ->with('error', 'Admin tidak dapat dihapus karena memiliki data pengajuan terkait.');

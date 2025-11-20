@@ -36,7 +36,14 @@ Route::middleware(['auth:user'])->group(function () {
         Route::post('/', [UserPengajuanController::class, 'store'])->name('store');
         Route::get('/{pengajuan}', [UserPengajuanController::class, 'show'])->name('show');
     });
+
+    Route::get('/password/reset', [UserAuthController::class, 'showResetPasswordForm'])
+          ->name('user.password.reset.form');
+    
+    Route::patch('/password/reset', [UserAuthController::class, 'resetPassword'])
+          ->name('user.password.reset');
 });
+
 
 
 // Authentication Routes Admin
@@ -75,21 +82,23 @@ Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::middleware(['super.admin'])->group(function () {
         
         // STUDENT MANAGEMENT (User/Siswa CRUD)
-        Route::resource('users', UserController::class)->parameters([
-            'users' => 'user:nisn' // Use NISN as route parameter instead of id
-        ]);
+        Route::resource('users', UserController::class);
         
         // Additional User Management Actions
         Route::patch('/users/{user}/reset-password', [UserController::class, 'resetPassword'])
              ->name('users.reset-password');
         
         // ADMIN MANAGEMENT (Admin CRUD) - TAMBAHKAN SECTION INI
-        Route::resource('admins', AdminController::class)->parameters([
-            'admins' => 'admin:id_admin' // Use id_admin as route parameter
-        ]);
-        
-        // Additional Admin Management Actions
-        Route::put('/admins/{admin}/reset-password', [AdminController::class, 'resetPassword'])
-             ->name('admins.reset-password');
+        Route::prefix('admins')->name('admins.')->group(function () {
+            Route::get('/', [AdminController::class, 'index'])->name('index');
+            Route::get('/create', [AdminController::class, 'create'])->name('create');
+            Route::post('/', [AdminController::class, 'store'])->name('store');
+            Route::get('/{admin:id_admin}', [AdminController::class, 'show'])->name('show');
+            Route::get('/{admin:id_admin}/edit', [AdminController::class, 'edit'])->name('edit');
+            Route::put('/{admin:id_admin}', [AdminController::class, 'update'])->name('update');
+            Route::delete('/{admin:id_admin}', [AdminController::class, 'destroy'])->name('destroy');
+            Route::put('/{admin:id_admin}/reset-password', [AdminController::class, 'resetPassword'])
+                 ->name('reset-password');
+        });
     });
 });

@@ -33,28 +33,19 @@ class UserController extends Controller
                         ->with('success', 'Siswa berhasil ditambahkan!');
     }
 
-    public function show($nisn)
+     public function show(User $user)
     {
-        $user = User::with('pengajuan.barang')
-                    ->where('nisn', $nisn)
-                    ->firstOrFail();
-        
+        $user->load('pengajuan.barang');
         return view('admin.users.show', compact('user'));
     }
 
-    public function edit($nisn)
+    public function edit(User $user)
     {
-        $user = User::with('pengajuan')
-                    ->where('nisn', $nisn)
-                    ->firstOrFail();
-        
         return view('admin.users.edit', compact('user'));
     }
 
-    public function update(Request $request, $nisn)
+    public function update(Request $request, User $user)
     {
-        $user = User::where('nisn', $nisn)->firstOrFail();
-        
         $validated = $request->validate([
             'nama' => 'required|max:100',
             'kelas' => 'required|max:10',
@@ -71,19 +62,25 @@ class UserController extends Controller
                         ->with('success', 'Data siswa berhasil diupdate!');
     }
 
-    public function destroy($nisn)
+    public function destroy(User $user)
     {
-        $user = User::where('nisn', $nisn)->firstOrFail();
+        $hasActiveSubmission = $user->pengajuan()
+            ->where('status', '!=', 2)
+            ->exists();
+
+        if ($hasActiveSubmission) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Gagal menghapus siswa: masih memiliki pengajuan aktif (pending/disetujui).');
+        }
+
         $user->delete();
 
         return redirect()->route('admin.users.index')
-                        ->with('success', 'Siswa berhasil dihapus!');
+            ->with('success', 'Akun siswa berhasil dihapus.');
     }
 
-    public function resetPassword(Request $request, $nisn)
+    public function resetPassword(Request $request, User $user)
     {
-        $user = User::where('nisn', $nisn)->firstOrFail();
-        
         $request->validate([
             'new_password' => 'required|min:6|confirmed'
         ]);
