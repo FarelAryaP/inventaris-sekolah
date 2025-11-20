@@ -41,7 +41,7 @@ class Pengajuan extends Model
 
     public function detailPeminjaman()
     {
-        return $this->hasOne(detail_peminjaman::class, 'id_pengajuan');
+        return $this->hasOne(DetailPeminjaman::class, 'id_pengajuan');
     }
 
     public function getStatusTextAttribute()

@@ -1,5 +1,4 @@
 <?php
-// app/Http/Controllers/User/PengajuanController.php
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
@@ -65,7 +64,6 @@ class PengajuanController extends Controller
     {
         $user = Auth::guard('user')->user();
         
-        // Pastikan user hanya bisa melihat pengajuan sendiri
         if ($pengajuan->nisn != $user->nisn) {
             abort(403);
         }

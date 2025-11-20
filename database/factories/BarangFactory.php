@@ -17,9 +17,9 @@ class BarangFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama_barang' => $this->faker->words(2, true), 
+            'nama_barang' => $this->faker->words(2, true),
             'jumlah' => $this->faker->numberBetween(5, 20),
-            'keterangan' => $this->faker->sentence(), 
+            'keterangan' => $this->faker->sentence(),
         ];
     }
 }

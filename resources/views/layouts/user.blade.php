@@ -44,6 +44,12 @@
                             <li>
                                 <span class="dropdown-item-text">Kelas: {{ Auth::guard('user')->user()->kelas }}</span>
                             </li>
+                                {{-- Contoh di dashboard --}}
+                                <div class="card-body">
+                                    <a href="{{ route('user.password.reset.form') }}" class="btn btn-outline-primary">
+                                        <i class="bi bi-key"></i> Ganti Password
+                                    </a>
+                                </div>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
