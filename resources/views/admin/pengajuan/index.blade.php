@@ -1,87 +1,78 @@
 @extends('layouts.admin')
 
-@section('title', 'Kelola Pengajuan')
+@section('title', 'Manajemen Pengajuan')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <h1 class="h3 mb-4">Kelola Pengajuan</h1>
+<div class="space-y-6">
+    <div>
+        <h1 class="text-2xl font-bold text-gray-900">Manajemen Pengajuan</h1>
+        <p class="text-gray-600">Kelola pengajuan peminjaman barang dari siswa</p>
     </div>
-</div>
 
-<div class="card">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
+    <div class="card p-0 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
                     <tr>
-                        <th>ID</th>
-                        <th>Siswa</th>
-                        <th>Barang</th>
-                        <th>Jumlah</th>
-                        <th>Tanggal Pengajuan</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
+                        <th class="table-header">No</th>
+                        <th class="table-header">Siswa</th>
+                        <th class="table-header">Barang</th>
+                        <th class="table-header">Jumlah</th>
+                        <th class="table-header">Tgl Pengajuan</th>
+                        <th class="table-header">Periode</th>
+                        <th class="table-header">Status</th>
+                        <th class="table-header">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach($pengajuans as $pengajuan)
-                    <tr>
-                        <td>{{ $pengajuan->id_pengajuan }}</td>
-                        <td>
-                            <strong>{{ $pengajuan->user->nama }}</strong><br>
-                            <small class="text-muted">NISN: {{ $pengajuan->user->nisn }}</small><br>
-                            <small class="text-muted">Kelas: {{ $pengajuan->user->kelas }}</small>
-                        </td>
-                        <td>{{ $pengajuan->barang->nama_barang }}</td>
-                        <td>{{ $pengajuan->jumlah }}</td>
-                        <td>{{ $pengajuan->tgl_pengajuan->format('d/m/Y H:i') }}</td>
-                        <td>
-                            @if($pengajuan->status == 0)
-                                <span class="badge bg-warning">Pending</span>
-                            @elseif($pengajuan->status == 1)
-                                <span class="badge bg-success">Approved</span>
-                            @else
-                                <span class="badge bg-danger">Rejected</span>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.pengajuan.show', $pengajuan) }}" 
-                                   class="btn btn-outline-info">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-                                @if($pengajuan->status == 0)
-                                    <form action="{{ route('admin.pengajuan.approve', $pengajuan) }}" 
-                                          method="POST" class="d-inline">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-outline-success" 
-                                                onclick="return confirm('Setujui pengajuan ini?')">
-                                            <i class="bi bi-check"></i>
-                                        </button>
-                                    </form>
-                                    <form action="{{ route('admin.pengajuan.reject', $pengajuan) }}" 
-                                          method="POST" class="d-inline">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-outline-danger" 
-                                                onclick="return confirm('Tolak pengajuan ini?')">
-                                            <i class="bi bi-x"></i>
-                                        </button>
-                                    </form>
-                                @endif
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @forelse($pengajuans as $index => $pengajuan)
+                    <tr class="hover:bg-gray-50">
+                        <td class="table-cell">{{ $pengajuans->firstItem() + $index }}</td>
+                        <td class="table-cell">
+                            <div>
+                                <p class="font-medium">{{ $pengajuan->user->nama }}</p>
+                                <p class="text-xs text-gray-500">{{ $pengajuan->user->kelas }}</p>
                             </div>
                         </td>
+                        <td class="table-cell font-medium">{{ $pengajuan->barang->nama_barang }}</td>
+                        <td class="table-cell">{{ $pengajuan->jumlah }}</td>
+                        <td class="table-cell">{{ $pengajuan->tgl_pengajuan->format('d M Y') }}</td>
+                        <td class="table-cell">
+                            <span class="text-xs">{{ $pengajuan->tgl_mulai->format('d/m/Y') }} - {{ $pengajuan->tgl_selesai->format('d/m/Y') }}</span>
+                        </td>
+                        <td class="table-cell">
+                            @if($pengajuan->status == 0)
+                                <span class="badge-pending">Pending</span>
+                            @elseif($pengajuan->status == 1)
+                                <span class="badge-approved">Disetujui</span>
+                            @else
+                                <span class="badge-rejected">Ditolak</span>
+                            @endif
+                        </td>
+                        <td class="table-cell">
+                            <a href="{{ route('admin.pengajuan.show', $pengajuan) }}" class="text-blue-600 hover:text-blue-700 font-medium">
+                                {{ $pengajuan->status == 0 ? 'Proses' : 'Detail' }}
+                            </a>
+                        </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="8" class="px-6 py-12 text-center">
+                            <svg class="h-12 w-12 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <p class="text-gray-500">Belum ada pengajuan</p>
+                        </td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
-        
-        <div class="d-flex justify-content-center">
+        @if($pengajuans->hasPages())
+        <div class="bg-gray-50 px-6 py-4 border-t">
             {{ $pengajuans->links() }}
         </div>
+        @endif
     </div>
 </div>
 @endsection

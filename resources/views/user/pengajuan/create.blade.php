@@ -1,101 +1,108 @@
-@extends('layouts.user')
+@extends('layouts.app')
 
-@section('title', 'Ajukan Barang')
+@section('title', 'Buat Pengajuan')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3">Ajukan Peminjaman Barang</h1>
-            <a href="{{ route('user.pengajuan.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Kembali
-            </a>
-        </div>
+<div class="max-w-2xl mx-auto space-y-6">
+    <!-- Header -->
+    <div>
+        <a href="{{ route('user.pengajuan.index') }}" class="text-primary-600 hover:text-primary-700 text-sm font-medium inline-flex items-center mb-2">
+            <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Kembali
+        </a>
+        <h1 class="text-2xl font-bold text-gray-900">Buat Pengajuan Peminjaman</h1>
+        <p class="text-gray-600">Isi form berikut untuk mengajukan peminjaman barang</p>
     </div>
-</div>
 
-<div class="card">
-    <div class="card-body">
-        <form action="{{ route('user.pengajuan.store') }}" method="POST">
+    <!-- Form Card -->
+    <div class="card">
+        <form method="POST" action="{{ route('user.pengajuan.store') }}">
             @csrf
-            <div class="mb-3">
-                <label for="id_barang" class="form-label">Pilih Barang *</label>
-                <select class="form-select @error('id_barang') is-invalid @enderror" 
-                        id="id_barang" name="id_barang" required>
+
+            <!-- Pilih Barang -->
+            <div class="mb-6">
+                <label for="id_barang" class="label">Pilih Barang <span class="text-red-500">*</span></label>
+                <select name="id_barang" id="id_barang" class="input-field @error('id_barang') input-error @enderror" required>
                     <option value="">-- Pilih Barang --</option>
                     @foreach($barangs as $barang)
-                    <option value="{{ $barang->id_barang }}" 
-                            {{ old('id_barang') == $barang->id_barang ? 'selected' : '' }}
-                            data-stok="{{ $barang->jumlah }}">
-                        {{ $barang->nama_barang }} (Stok: {{ $barang->jumlah }})
-                    </option>
+                        <option value="{{ $barang->id_barang }}" {{ old('id_barang') == $barang->id_barang ? 'selected' : '' }}>
+                            {{ $barang->nama_barang }} (Stok: {{ $barang->jumlah }})
+                        </option>
                     @endforeach
                 </select>
                 @error('id_barang')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="jumlah" class="form-label">Jumlah *</label>
-                <input type="number" class="form-control @error('jumlah') is-invalid @enderror" 
-                       id="jumlah" name="jumlah" value="{{ old('jumlah', 1) }}" min="1" required>
-                <div class="form-text">Masukkan jumlah barang yang ingin dipinjam</div>
+            <!-- Jumlah -->
+            <div class="mb-6">
+                <label for="jumlah" class="label">Jumlah <span class="text-red-500">*</span></label>
+                <input type="number" name="jumlah" id="jumlah" value="{{ old('jumlah', 1) }}" min="1"
+                       class="input-field @error('jumlah') input-error @enderror" required>
                 @error('jumlah')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="tgl_mulai" class="form-label">Tanggal Mulai *</label>
-                <input type="date" class="form-control @error('tgl_mulai') is-invalid @enderror" 
-                       id="tgl_mulai" name="tgl_mulai" value="{{ old('tgl_mulai') }}" 
-                       min="{{ date('Y-m-d') }}" required>
+            <!-- Tanggal Mulai -->
+            <div class="mb-6">
+                <label for="tgl_mulai" class="label">Tanggal Mulai Pinjam <span class="text-red-500">*</span></label>
+                <input type="date" name="tgl_mulai" id="tgl_mulai" value="{{ old('tgl_mulai', date('Y-m-d')) }}" 
+                       min="{{ date('Y-m-d') }}"
+                       class="input-field @error('tgl_mulai') input-error @enderror" required>
                 @error('tgl_mulai')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="tgl_selesai" class="form-label">Tanggal Selesai *</label>
-                <input type="date" class="form-control @error('tgl_selesai') is-invalid @enderror" 
-                       id="tgl_selesai" name="tgl_selesai" value="{{ old('tgl_selesai') }}" required>
+            <!-- Tanggal Selesai -->
+            <div class="mb-6">
+                <label for="tgl_selesai" class="label">Tanggal Selesai Pinjam <span class="text-red-500">*</span></label>
+                <input type="date" name="tgl_selesai" id="tgl_selesai" value="{{ old('tgl_selesai') }}"
+                       class="input-field @error('tgl_selesai') input-error @enderror" required>
                 @error('tgl_selesai')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-send"></i> Ajukan
+            <!-- Info -->
+            <div class="alert-info mb-6">
+                <div class="flex">
+                    <svg class="h-5 w-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <div class="text-sm">
+                        <p class="font-medium">Informasi:</p>
+                        <ul class="list-disc list-inside mt-1 text-blue-700">
+                            <li>Pengajuan akan diproses oleh admin</li>
+                            <li>Pastikan stok barang mencukupi</li>
+                            <li>Tanggal mulai minimal hari ini</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex items-center justify-end space-x-4">
+                <a href="{{ route('user.pengajuan.index') }}" class="btn-secondary">Batal</a>
+                <button type="submit" class="btn-primary">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Ajukan Peminjaman
                 </button>
-                <a href="{{ route('user.pengajuan.index') }}" class="btn btn-secondary">Batal</a>
             </div>
         </form>
     </div>
 </div>
-@endsection
 
-@push('scripts')
 <script>
-document.getElementById('id_barang').addEventListener('change', function() {
-    const selectedOption = this.options[this.selectedIndex];
-    const stok = selectedOption.dataset.stok;
-    const jumlahInput = document.getElementById('jumlah');
-    
-    if (stok) {
-        jumlahInput.max = stok;
-        jumlahInput.placeholder = `Maksimal ${stok}`;
-    }
-});
-
-document.getElementById('tgl_mulai').addEventListener('change', function() {
-    const tglMulai = new Date(this.value);
-    const tglSelesai = document.getElementById('tgl_selesai');
-    
-    // Set tanggal minimum untuk tgl_selesai
-    tglMulai.setDate(tglMulai.getDate() + 1);
-    tglSelesai.min = tglMulai.toISOString().split('T')[0];
-});
+    // Auto update min date for tgl_selesai
+    document.getElementById('tgl_mulai').addEventListener('change', function() {
+        document.getElementById('tgl_selesai').min = this.value;
+    });
 </script>
-@endpush
+@endsection

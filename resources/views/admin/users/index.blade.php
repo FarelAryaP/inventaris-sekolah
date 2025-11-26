@@ -1,149 +1,77 @@
 @extends('layouts.admin')
 
-@section('title', 'Kelola Siswa')
+@section('title', 'Manajemen Siswa')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3">
-                <i class="bi bi-people"></i> Kelola Siswa
-                <small class="text-muted">(Super Admin Only)</small>
-            </h1>
-            <a href="{{ route('admin.users.create') }}" class="btn btn-success">
-                <i class="bi bi-person-plus"></i> Tambah Siswa
-            </a>
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Manajemen Siswa</h1>
+            <p class="text-gray-600">Kelola data akun siswa</p>
         </div>
+        <a href="{{ route('admin.users.create') }}" class="btn-primary">
+            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Tambah Siswa
+        </a>
     </div>
-</div>
 
-<div class="card">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
+    <!-- Table -->
+    <div class="card p-0 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
                     <tr>
-                        <th>NISN</th>
-                        <th>Nama</th>
-                        <th>Kelas</th>
-                        <th>Password</th>
-                        <th>Terdaftar</th>
-                        <th>Aksi</th>
+                        <th class="table-header">No</th>
+                        <th class="table-header">NISN</th>
+                        <th class="table-header">Nama</th>
+                        <th class="table-header">Kelas</th>
+                        <th class="table-header">Total Pengajuan</th>
+                        <th class="table-header">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @forelse($users as $userItem)
-                    <tr>
-                        <td>
-                            <code>{{ $userItem->nisn }}</code>
-                        </td>
-                        <td>{{ $userItem->nama }}</td>
-                        <td>
-                            <span class="badge bg-info">{{ $userItem->kelas }}</span>
-                        </td>
-                        <td>
-                            <span class="badge bg-success">
-                                <i class="bi bi-shield-check"></i> Set
-                            </span>
-                        </td>
-                        <td>{{ $userItem->created_at->format('d/m/Y') }}</td>
-                        <td>
-                            <div class="btn-group btn-group-sm">
-                                <a href="{{ route('admin.users.show', $userItem->nisn) }}" 
-                                   class="btn btn-outline-info" title="Detail">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-                                <a href="{{ route('admin.users.edit', $userItem->nisn) }}" 
-                                   class="btn btn-outline-warning" title="Edit">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <button type="button" class="btn btn-outline-secondary"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#resetPasswordModal{{ $userItem->nisn }}"
-                                        title="Reset Password">
-                                    <i class="bi bi-key"></i>
-                                </button>
-                                <form action="{{ route('admin.users.destroy', $userItem->nisn) }}" 
-                                      method="POST" class="d-inline" 
-                                      onsubmit="return confirm('Yakin ingin menghapus siswa {{ $userItem->nama }}? Semua data pengajuan akan ikut terhapus.')">
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @forelse($users as $index => $user)
+                    <tr class="hover:bg-gray-50">
+                        <td class="table-cell">{{ $users->firstItem() + $index }}</td>
+                        <td class="table-cell font-medium">{{ $user->nisn }}</td>
+                        <td class="table-cell">{{ $user->nama }}</td>
+                        <td class="table-cell">{{ $user->kelas }}</td>
+                        <td class="table-cell">{{ $user->pengajuan()->count() }}</td>
+                        <td class="table-cell">
+                            <div class="flex items-center space-x-2">
+                                <a href="{{ route('admin.users.show', $user) }}" class="text-blue-600 hover:text-blue-800">Detail</a>
+                                <a href="{{ route('admin.users.edit', $user) }}" class="text-green-600 hover:text-green-800">Edit</a>
+                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline" 
+                                      onsubmit="return confirm('Yakin ingin menghapus siswa ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger" title="Hapus">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                    <button type="submit" class="text-red-600 hover:text-red-800">Hapus</button>
                                 </form>
                             </div>
                         </td>
                     </tr>
-
-                    {{-- Modal Reset Password --}}
-                    <div class="modal fade" id="resetPasswordModal{{ $userItem->nisn }}" tabindex="-1" aria-labelledby="resetPasswordModalLabel{{ $userItem->nisn }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="resetPasswordModalLabel{{ $userItem->nisn }}">
-                                        Reset Password - {{ $userItem->nama }}
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form action="{{ route('admin.users.reset-password', $userItem->nisn) }}" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <div class="modal-body">
-                                        <div class="alert alert-info">
-                                            <i class="bi bi-info-circle"></i>
-                                            <strong>NISN:</strong> {{ $userItem->nisn }}<br>
-                                            <strong>Nama:</strong> {{ $userItem->nama }}<br>
-                                            <strong>Kelas:</strong> {{ $userItem->kelas }}
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="new_password{{ $userItem->nisn }}" class="form-label">Password Baru</label>
-                                            <input type="password" class="form-control" 
-                                                   id="new_password{{ $userItem->nisn }}" 
-                                                   name="new_password" 
-                                                   placeholder="Minimal 6 karakter"
-                                                   required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="new_password_confirmation{{ $userItem->nisn }}" class="form-label">Konfirmasi Password</label>
-                                            <input type="password" class="form-control" 
-                                                   id="new_password_confirmation{{ $userItem->nisn }}" 
-                                                   name="new_password_confirmation" 
-                                                   placeholder="Ketik ulang password"
-                                                   required>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="bi bi-key"></i> Reset Password
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     @empty
                     <tr>
-                        <td colspan="6" class="text-center text-muted py-5">
-                            <i class="bi bi-person-x" style="font-size: 3rem; opacity: 0.5;"></i>
-                            <p class="mt-2">Belum ada data siswa</p>
-                            <a href="{{ route('admin.users.create') }}" class="btn btn-success btn-sm">
-                                <i class="bi bi-plus-circle"></i> Tambah Siswa Pertama
-                            </a>
+                        <td colspan="6" class="px-6 py-12 text-center">
+                            <svg class="h-12 w-12 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                            <p class="text-gray-500">Belum ada data siswa</p>
                         </td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-        
-        <div class="d-flex justify-content-center mt-3">
+
+        @if($users->hasPages())
+        <div class="bg-gray-50 px-6 py-4 border-t">
             {{ $users->links() }}
         </div>
-    </div>
-    <div class="card-footer text-muted">
-        <small>Total: {{ $users->total() }} siswa</small>
+        @endif
     </div>
 </div>
 @endsection

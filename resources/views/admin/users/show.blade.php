@@ -3,238 +3,129 @@
 @section('title', 'Detail Siswa')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3">
-                <i class="bi bi-person-circle"></i> Detail Data Siswa
-            </h1>
-            <div class="btn-group">
-                <a href="{{ route('admin.users.edit', $user->nisn) }}" class="btn btn-warning">
-                    <i class="bi bi-pencil"></i> Edit
+<div class="max-w-4xl mx-auto space-y-6">
+    <!-- Header -->
+    <div>
+        <a href="{{ route('admin.users.index') }}" class="text-blue-600 hover:text-blue-700 text-sm font-medium inline-flex items-center mb-2">
+            <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Kembali
+        </a>
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-gray-900">Detail Siswa</h1>
+            <div class="flex space-x-2">
+                <a href="{{ route('admin.users.edit', $user) }}" class="btn-secondary btn-sm">
+                    <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                    Edit
                 </a>
-                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
-                    <i class="bi bi-arrow-left"></i> Kembali
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-4">
-        <div class="card border-primary">
-            <div class="card-header bg-primary text-white">
-                <h5 class="card-title mb-0">
-                    <i class="bi bi-person-badge"></i> Informasi Siswa
-                </h5>
-            </div>
-            <div class="card-body text-center">
-                <div class="mb-3">
-                    <i class="bi bi-person-circle text-primary" style="font-size: 5rem;"></i>
-                </div>
-                <h4 class="mb-1">{{ $user->nama }}</h4>
-                <p class="text-muted mb-2">
-                    <code class="fs-6">{{ $user->nisn }}</code>
-                </p>
-                <span class="badge bg-info fs-6">{{ $user->kelas }}</span>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">
-                    <i class="bi bi-calendar-plus"></i> Terdaftar: {{ $user->created_at->format('d/m/Y') }}
-                </small>
-            </div>
-        </div>
-
-        <div class="card mt-3">
-            <div class="card-header">
-                <h6 class="card-title mb-0">
-                    <i class="bi bi-shield-check"></i> Status Akun
-                </h6>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span>Password:</span>
-                    <span class="badge bg-success">Set</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span>Status:</span>
-                    <span class="badge bg-success">Active</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <span>Last Update:</span>
-                    <small class="text-muted">{{ $user->updated_at->diffForHumans() }}</small>
-                </div>
-                
-                <hr>
-
-                <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-sm btn-outline-secondary"
-                            data-bs-toggle="modal" 
-                            data-bs-target="#resetPasswordModal">
-                        <i class="bi bi-key"></i> Reset Password
+                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-danger btn-sm">
+                        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+                        Hapus
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">
-                    <i class="bi bi-clipboard-data"></i> Riwayat Pengajuan
-                </h5>
+    <!-- Info Siswa -->
+    <div class="card">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4 pb-4 border-b">Informasi Siswa</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-sm text-gray-500">NISN</p>
+                <p class="font-medium text-gray-900">{{ $user->nisn }}</p>
             </div>
-            <div class="card-body">
-                @if($user->pengajuan->count() > 0)
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Barang</th>
-                                    <th>Jumlah</th>
-                                    <th>Tanggal</th>
-                                    <th>Periode</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($user->pengajuan->sortByDesc('created_at') as $pengajuan)
-                                <tr>
-                                    <td>{{ $pengajuan->id_pengajuan }}</td>
-                                    <td>{{ $pengajuan->barang->nama_barang ?? 'N/A' }}</td>
-                                    <td>{{ $pengajuan->jumlah }}</td>
-                                    <td>
-                                        @if($pengajuan->tgl_pengajuan)
-                                            {{ \Carbon\Carbon::parse($pengajuan->tgl_pengajuan)->format('d/m/Y') }}
-                                        @else
-                                            N/A
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($pengajuan->tgl_mulai && $pengajuan->tgl_selesai)
-                                            <small>
-                                                {{ \Carbon\Carbon::parse($pengajuan->tgl_mulai)->format('d/m') }} - 
-                                                {{ \Carbon\Carbon::parse($pengajuan->tgl_selesai)->format('d/m/Y') }}
-                                            </small>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @switch($pengajuan->status)
-                                            @case(0)
-                                                <span class="badge bg-warning">Pending</span>
-                                                @break
-                                            @case(1)
-                                                <span class="badge bg-success">Approved</span>
-                                                @break
-                                            @case(2)
-                                                <span class="badge bg-danger">Rejected</span>
-                                                @break
-                                            @default
-                                                <span class="badge bg-secondary">Unknown</span>
-                                        @endswitch
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.pengajuan.show', $pengajuan) }}" 
-                                           class="btn btn-sm btn-outline-primary">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    {{-- Summary Stats --}}
-                    <div class="row mt-3">
-                        <div class="col-md-3">
-                            <div class="card bg-light">
-                                <div class="card-body text-center">
-                                    <h3 class="mb-0">{{ $user->pengajuan->count() }}</h3>
-                                    <small class="text-muted">Total</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card bg-warning bg-opacity-10">
-                                <div class="card-body text-center">
-                                    <h3 class="mb-0">{{ $user->pengajuan->where('status', 0)->count() }}</h3>
-                                    <small class="text-muted">Pending</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card bg-success bg-opacity-10">
-                                <div class="card-body text-center">
-                                    <h3 class="mb-0">{{ $user->pengajuan->where('status', 1)->count() }}</h3>
-                                    <small class="text-muted">Approved</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card bg-danger bg-opacity-10">
-                                <div class="card-body text-center">
-                                    <h3 class="mb-0">{{ $user->pengajuan->where('status', 2)->count() }}</h3>
-                                    <small class="text-muted">Rejected</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <div class="text-center text-muted py-5">
-                        <i class="bi bi-inbox" style="font-size: 3rem; opacity: 0.5;"></i>
-                        <p class="mt-2">Belum ada riwayat pengajuan</p>
-                    </div>
-                @endif
+            <div>
+                <p class="text-sm text-gray-500">Nama Lengkap</p>
+                <p class="font-medium text-gray-900">{{ $user->nama }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Kelas</p>
+                <p class="font-medium text-gray-900">{{ $user->kelas }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Terdaftar Sejak</p>
+                <p class="font-medium text-gray-900">{{ $user->created_at->format('d M Y') }}</p>
             </div>
         </div>
     </div>
-</div>
 
-{{-- Modal Reset Password --}}
-<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password - {{ $user->nama }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Reset Password -->
+    <div class="card">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4 pb-4 border-b">Reset Password</h2>
+        <form method="POST" action="{{ route('admin.users.reset-password', $user) }}">
+            @csrf
+            @method('PATCH')
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="new_password" class="label">Password Baru</label>
+                    <input type="password" name="new_password" id="new_password" 
+                           class="input-field {{ $errors->has('new_password') ? 'input-error' : '' }}" required>
+                    @error('new_password')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label for="new_password_confirmation" class="label">Konfirmasi Password</label>
+                    <input type="password" name="new_password_confirmation" id="new_password_confirmation" 
+                           class="input-field" required>
+                </div>
             </div>
-            <form action="{{ route('admin.users.reset-password', $user->nisn) }}" method="POST">
-                @csrf
-                @method('PATCH')
-                <div class="modal-body">
-                    <div class="alert alert-info">
-                        <i class="bi bi-info-circle"></i>
-                        Password baru akan diberikan kepada <strong>{{ $user->nama }}</strong> 
-                        (NISN: {{ $user->nisn }})
-                    </div>
-                    <div class="mb-3">
-                        <label for="new_password" class="form-label">Password Baru</label>
-                        <input type="password" class="form-control" 
-                               id="new_password" name="new_password" 
-                               placeholder="Minimal 6 karakter" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="new_password_confirmation" class="form-label">Konfirmasi Password</label>
-                        <input type="password" class="form-control" 
-                               id="new_password_confirmation" name="new_password_confirmation" 
-                               placeholder="Ketik ulang password" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-key"></i> Reset Password
-                    </button>
-                </div>
-            </form>
+            <button type="submit" class="btn-warning mt-4">
+                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                </svg>
+                Reset Password
+            </button>
+        </form>
+    </div>
+
+    <!-- Riwayat Pengajuan -->
+    <div class="card">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4 pb-4 border-b">Riwayat Pengajuan</h2>
+        
+        @if($user->pengajuan->count() > 0)
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="table-header">Barang</th>
+                        <th class="table-header">Jumlah</th>
+                        <th class="table-header">Tanggal</th>
+                        <th class="table-header">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @foreach($user->pengajuan as $pengajuan)
+                    <tr>
+                        <td class="table-cell">{{ $pengajuan->barang->nama_barang }}</td>
+                        <td class="table-cell">{{ $pengajuan->jumlah }}</td>
+                        <td class="table-cell">{{ $pengajuan->tgl_pengajuan->format('d M Y') }}</td>
+                        <td class="table-cell">
+                            @if($pengajuan->status == 0)
+                                <span class="badge-pending">Pending</span>
+                            @elseif($pengajuan->status == 1)
+                                <span class="badge-approved">Disetujui</span>
+                            @else
+                                <span class="badge-rejected">Ditolak</span>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+        @else
+        <p class="text-center text-gray-500 py-4">Belum ada riwayat pengajuan</p>
+        @endif
     </div>
 </div>
 @endsection

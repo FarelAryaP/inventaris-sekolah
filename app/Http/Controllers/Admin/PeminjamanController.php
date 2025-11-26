@@ -58,11 +58,33 @@ class PeminjamanController extends Controller
                         ->with('success', 'Status barang diubah menjadi hilang!');
     }
 
-    public function laporanPeminjaman()
+    public function laporanPeminjaman(Request $request)
     {
-        $peminjamans = DetailPeminjaman::with(['pengajuan.user', 'pengajuan.barang'])
-                                      ->get();
-        
-        return view('admin.laporan.peminjaman', compact('peminjamans'));
+        $query = DetailPeminjaman::with(['pengajuan.user', 'pengajuan.barang']);
+
+        // Filter berdasarkan status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter berdasarkan periode
+        if ($request->filled('tanggal_mulai')) {
+            $query->whereDate('tgl_mulai', '>=', $request->tanggal_mulai);
+        }
+        if ($request->filled('tanggal_selesai')) {
+            $query->whereDate('tgl_selesai', '<=', $request->tanggal_selesai);
+        }
+
+        $peminjamans = $query->latest()->get();
+
+        // Statistik
+        $stats = [
+            'total' => $peminjamans->count(),
+            'dipinjam' => $peminjamans->where('status', 0)->count(),
+            'dikembalikan' => $peminjamans->where('status', 1)->count(),
+            'hilang' => $peminjamans->where('status', 2)->count(),
+        ];
+
+        return view('admin.laporan.peminjaman', compact('peminjamans', 'stats'));
     }
 }

@@ -11,13 +11,14 @@ use App\Http\Controllers\Admin\PengajuanController as AdminPengajuanController;
 use App\Http\Controllers\User\PengajuanController as UserPengajuanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\LaporanController;
 
 
 Route::get('/', function () {
     return redirect('/login');
 });
 
-// Authentication Routes - User/Siswa
+// Authentication Routes User/Siswa
 Route::get('/login', [UserAuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UserAuthController::class, 'login']);
 Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
@@ -76,19 +77,33 @@ Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(functi
         Route::patch('/{peminjaman}/hilang', [PeminjamanController::class, 'hilang'])->name('hilang');
     });
     
-    // Laporan
-    Route::get('/laporan/peminjaman', [PeminjamanController::class, 'laporanPeminjaman'])->name('laporan.peminjaman');
+    // Tambahkan di dalam Route::middleware(['auth:admin'])
+
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        // Dashboard Laporan
+        Route::get('/', [LaporanController::class, 'index'])->name('index');
+        
+        // Laporan Detail
+        Route::get('/peminjaman', [LaporanController::class, 'peminjaman'])->name('peminjaman');
+        Route::get('/barang', [LaporanController::class, 'barang'])->name('barang');
+        Route::get('/pengajuan', [LaporanController::class, 'pengajuan'])->name('pengajuan');
+        Route::get('/siswa', [LaporanController::class, 'siswa'])->name('siswa');
+        
+        // Export (optional - untuk future)
+        Route::get('/export/{type}/pdf', [LaporanController::class, 'exportPdf'])->name('export.pdf');
+        Route::get('/export/{type}/excel', [LaporanController::class, 'exportExcel'])->name('export.excel');
+    });
 
     Route::middleware(['super.admin'])->group(function () {
         
-        // STUDENT MANAGEMENT (User/Siswa CRUD)
+        // User Management
         Route::resource('users', UserController::class);
         
         // Additional User Management Actions
         Route::patch('/users/{user}/reset-password', [UserController::class, 'resetPassword'])
              ->name('users.reset-password');
         
-        // ADMIN MANAGEMENT (Admin CRUD) - TAMBAHKAN SECTION INI
+        // Admin Management
         Route::prefix('admins')->name('admins.')->group(function () {
             Route::get('/', [AdminController::class, 'index'])->name('index');
             Route::get('/create', [AdminController::class, 'create'])->name('create');

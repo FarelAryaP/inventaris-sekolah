@@ -3,53 +3,58 @@
 @section('title', 'Tambah Barang')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3">Tambah Barang</h1>
-            <a href="{{ route('admin.barang.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Kembali
-            </a>
-        </div>
+<div class="max-w-2xl mx-auto space-y-6">
+    <div>
+        <a href="{{ route('admin.barang.index') }}" class="text-blue-600 hover:text-blue-700 text-sm font-medium inline-flex items-center mb-2">
+            <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Kembali
+        </a>
+        <h1 class="text-2xl font-bold text-gray-900">Tambah Barang Baru</h1>
+        <p class="text-gray-600">Isi data barang untuk ditambahkan ke inventaris</p>
     </div>
-</div>
 
-<div class="card">
-    <div class="card-body">
-        <form action="{{ route('admin.barang.store') }}" method="POST">
+    <div class="card">
+        <form method="POST" action="{{ route('admin.barang.store') }}">
             @csrf
-            <div class="mb-3">
-                <label for="nama_barang" class="form-label">Nama Barang *</label>
-                <input type="text" class="form-control @error('nama_barang') is-invalid @enderror" 
-                       id="nama_barang" name="nama_barang" value="{{ old('nama_barang') }}" required>
+            <div class="mb-6">
+                <label for="nama_barang" class="label">Nama Barang <span class="text-red-500">*</span></label>
+                <input type="text" name="nama_barang" id="nama_barang" value="{{ old('nama_barang') }}"
+                       class="input-field {{ $errors->has('nama_barang') ? 'input-error' : '' }}" 
+                       placeholder="Contoh: Proyektor" required>
                 @error('nama_barang')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="jumlah" class="form-label">Jumlah *</label>
-                <input type="number" class="form-control @error('jumlah') is-invalid @enderror" 
-                       id="jumlah" name="jumlah" value="{{ old('jumlah', 0) }}" min="0" required>
+            <div class="mb-6">
+                <label for="jumlah" class="label">Jumlah <span class="text-red-500">*</span></label>
+                <input type="number" name="jumlah" id="jumlah" value="{{ old('jumlah', 0) }}" min="0"
+                       class="input-field {{ $errors->has('jumlah') ? 'input-error' : '' }}" required>
                 @error('jumlah')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="keterangan" class="form-label">Keterangan</label>
-                <textarea class="form-control @error('keterangan') is-invalid @enderror" 
-                          id="keterangan" name="keterangan" rows="3">{{ old('keterangan') }}</textarea>
+            <div class="mb-6">
+                <label for="keterangan" class="label">Keterangan</label>
+                <textarea name="keterangan" id="keterangan" rows="4"
+                          class="input-field {{ $errors->has('keterangan') ? 'input-error' : '' }}"
+                          placeholder="Deskripsi atau keterangan tambahan...">{{ old('keterangan') }}</textarea>
                 @error('keterangan')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-save"></i> Simpan
+            <div class="flex items-center justify-end space-x-4">
+                <a href="{{ route('admin.barang.index') }}" class="btn-secondary">Batal</a>
+                <button type="submit" class="btn-primary">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Simpan
                 </button>
-                <a href="{{ route('admin.barang.index') }}" class="btn btn-secondary">Batal</a>
             </div>
         </form>
     </div>

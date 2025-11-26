@@ -3,96 +3,89 @@
 @section('title', 'Tambah Admin')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>
-        <i class="bi bi-person-plus"></i> Tambah Admin Baru
-    </h2>
-    <a href="{{ route('admin.admins.index') }}" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left"></i> Kembali
-    </a>
-</div>
+<div class="max-w-2xl mx-auto space-y-6">
+    <!-- Header -->
+    <div>
+        <a href="{{ route('admin.admins.index') }}" class="text-blue-600 hover:text-blue-700 text-sm font-medium inline-flex items-center mb-2">
+            <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Kembali
+        </a>
+        <h1 class="text-2xl font-bold text-gray-900">Tambah Admin Baru</h1>
+        <p class="text-gray-600">Buat akun admin atau staff baru</p>
+    </div>
 
-<div class="card shadow-sm">
-    <div class="card-body">
-        <form action="{{ route('admin.admins.store') }}" method="POST">
+    <!-- Form -->
+    <div class="card">
+        <form method="POST" action="{{ route('admin.admins.store') }}">
             @csrf
-            
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" 
-                       class="form-control @error('username') is-invalid @enderror" 
-                       id="username" 
-                       name="username" 
-                       value="{{ old('username') }}" 
-                       required>
+
+            <!-- Username -->
+            <div class="mb-6">
+                <label for="username" class="label">Username <span class="text-red-500">*</span></label>
+                <input type="text" name="username" id="username" value="{{ old('username') }}"
+                       class="input-field {{ $errors->has('username') ? 'input-error' : '' }}" 
+                       placeholder="Masukkan username" required>
                 @error('username')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="nama" class="form-label">Nama Lengkap</label>
-                <input type="text" 
-                       class="form-control @error('nama') is-invalid @enderror" 
-                       id="nama" 
-                       name="nama" 
-                       value="{{ old('nama') }}" 
-                       required>
+            <!-- Nama -->
+            <div class="mb-6">
+                <label for="nama" class="label">Nama Lengkap <span class="text-red-500">*</span></label>
+                <input type="text" name="nama" id="nama" value="{{ old('nama') }}"
+                       class="input-field {{ $errors->has('nama') ? 'input-error' : '' }}" 
+                       placeholder="Masukkan nama lengkap" required>
                 @error('nama')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="id_role" class="form-label">Role</label>
-                <select class="form-select @error('id_role') is-invalid @enderror" 
-                        id="id_role" 
-                        name="id_role" 
-                        required>
+            <!-- Role -->
+            <div class="mb-6">
+                <label for="id_role" class="label">Role <span class="text-red-500">*</span></label>
+                <select name="id_role" id="id_role" class="input-field {{ $errors->has('id_role') ? 'input-error' : '' }}" required>
                     <option value="">-- Pilih Role --</option>
                     @foreach($roles as $role)
-                        <option value="{{ $role->id_role }}" 
-                                {{ old('id_role') == $role->id_role ? 'selected' : '' }}>
-                            {{ $role->nama }}
-                            @if($role->deskripsi)
-                                - {{ $role->deskripsi }}
-                            @endif
+                        <option value="{{ $role->id_role }}" {{ old('id_role') == $role->id_role ? 'selected' : '' }}>
+                            {{ $role->nama }} - {{ $role->deskripsi }}
                         </option>
                     @endforeach
                 </select>
                 @error('id_role')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" 
-                       class="form-control @error('password') is-invalid @enderror" 
-                       id="password" 
-                       name="password" 
-                       required>
+            <!-- Password -->
+            <div class="mb-6">
+                <label for="password" class="label">Password <span class="text-red-500">*</span></label>
+                <input type="password" name="password" id="password"
+                       class="input-field {{ $errors->has('password') ? 'input-error' : '' }}" 
+                       placeholder="Minimal 8 karakter" required>
                 @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                <input type="password" 
-                       class="form-control" 
-                       id="password_confirmation" 
-                       name="password_confirmation" 
-                       required>
+            <!-- Konfirmasi Password -->
+            <div class="mb-6">
+                <label for="password_confirmation" class="label">Konfirmasi Password <span class="text-red-500">*</span></label>
+                <input type="password" name="password_confirmation" id="password_confirmation"
+                       class="input-field" placeholder="Ulangi password" required>
             </div>
 
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-save"></i> Simpan Admin
+            <!-- Buttons -->
+            <div class="flex items-center justify-end space-x-4">
+                <a href="{{ route('admin.admins.index') }}" class="btn-secondary">Batal</a>
+                <button type="submit" class="btn-primary">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Simpan
                 </button>
-                <a href="{{ route('admin.admins.index') }}" class="btn btn-secondary">
-                    Batal
-                </a>
             </div>
         </form>
     </div>

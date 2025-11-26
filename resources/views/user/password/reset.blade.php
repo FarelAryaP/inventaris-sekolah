@@ -1,72 +1,77 @@
-{{-- resources/views/user/password/reset.blade.php --}}
-@extends('layouts.user')
+@extends('layouts.app')
 
-@section('title', 'Reset Password')
+@section('title', 'Ganti Password')
 
 @section('content')
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="bi bi-lock"></i> Ganti Password</h5>
-                </div>
-                <div class="card-body">
-                    
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
+<div class="max-w-lg mx-auto space-y-6">
+    <!-- Header -->
+    <div>
+        <h1 class="text-2xl font-bold text-gray-900">Ganti Password</h1>
+        <p class="text-gray-600">Perbarui password akun Anda</p>
+    </div>
 
-                    <form method="POST" action="{{ route('user.password.reset') }}">
-                        @csrf
-                        @method('PATCH')
+    <!-- Form Card -->
+    <div class="card">
+        <form method="POST" action="{{ route('user.password.reset') }}">
+            @csrf
+            @method('PATCH')
 
-                        <div class="mb-3">
-                            <label for="current_password" class="form-label">Password Saat Ini</label>
-                            <input type="password" 
-                                   class="form-control @error('current_password') is-invalid @enderror" 
-                                   id="current_password" 
-                                   name="current_password" 
-                                   required>
-                            @error('current_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+            <!-- Password Saat Ini -->
+            <div class="mb-6">
+                <label for="current_password" class="label">Password Saat Ini <span class="text-red-500">*</span></label>
+                <input type="password" name="current_password" id="current_password"
+                       class="input-field @error('current_password') input-error @enderror" 
+                       placeholder="Masukkan password saat ini" required>
+                @error('current_password')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
 
-                        <div class="mb-3">
-                            <label for="new_password" class="form-label">Password Baru</label>
-                            <input type="password" 
-                                   class="form-control @error('new_password') is-invalid @enderror" 
-                                   id="new_password" 
-                                   name="new_password" 
-                                   required>
-                            @error('new_password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+            <!-- Password Baru -->
+            <div class="mb-6">
+                <label for="new_password" class="label">Password Baru <span class="text-red-500">*</span></label>
+                <input type="password" name="new_password" id="new_password"
+                       class="input-field @error('new_password') input-error @enderror" 
+                       placeholder="Masukkan password baru" required>
+                @error('new_password')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+                <p class="mt-1 text-sm text-gray-500">Minimal 8 karakter</p>
+            </div>
 
-                        <div class="mb-3">
-                            <label for="new_password_confirmation" class="form-label">Konfirmasi Password Baru</label>
-                            <input type="password" 
-                                   class="form-control" 
-                                   id="new_password_confirmation" 
-                                   name="new_password_confirmation" 
-                                   required>
-                        </div>
+            <!-- Konfirmasi Password -->
+            <div class="mb-6">
+                <label for="new_password_confirmation" class="label">Konfirmasi Password Baru <span class="text-red-500">*</span></label>
+                <input type="password" name="new_password_confirmation" id="new_password_confirmation"
+                       class="input-field" 
+                       placeholder="Ulangi password baru" required>
+            </div>
 
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="{{ route('user.dashboard') }}" class="btn btn-secondary me-md-2">
-                                <i class="bi bi-arrow-left"></i> Batal
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save"></i> Simpan Perubahan
-                            </button>
-                        </div>
-                    </form>
-                </div>
+            <!-- Submit -->
+            <div class="flex justify-end">
+                <button type="submit" class="btn-primary">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                    </svg>
+                    Simpan Password Baru
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Info -->
+    <div class="alert-info">
+        <div class="flex">
+            <svg class="h-5 w-5 text-blue-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div class="text-sm">
+                <p class="font-medium">Tips keamanan password:</p>
+                <ul class="list-disc list-inside mt-1 text-blue-700">
+                    <li>Gunakan kombinasi huruf, angka, dan simbol</li>
+                    <li>Jangan gunakan informasi pribadi</li>
+                    <li>Jangan bagikan password kepada siapapun</li>
+                </ul>
             </div>
         </div>
     </div>
