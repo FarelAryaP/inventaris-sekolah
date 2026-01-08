@@ -10,9 +10,9 @@ use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of admins.
-     */
+    
+    // Display admins list.
+     
     public function index()
     {
         $admins = Admin::with('role')
@@ -22,18 +22,14 @@ class AdminController extends Controller
         return view('admin.admins.index', compact('admins'));
     }
 
-    /**
-     * Show the form for creating a new admin.
-     */
+    // Admin Create Form
     public function create()
     {
         $roles = Role::all();
         return view('admin.admins.create', compact('roles'));
     }
 
-    /**
-     * Store a newly created admin in storage.
-     */
+    //
     public function store(Request $request)
     {
         $validated = $request->validate([

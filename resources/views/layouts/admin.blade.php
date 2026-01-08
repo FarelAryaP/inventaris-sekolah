@@ -3,220 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Panel') - Inventaris Sekolah</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Dashboard') - Admin Panel</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-    <!-- NAVIGATION BAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-        <div class="container-fluid">
-            <!-- Brand -->
-            <a class="navbar-brand d-flex align-items-center" href="{{ route('admin.dashboard') }}">
-                <i class="bi bi-box-seam me-2"></i> 
-                Inventaris Sekolah
-            </a>
+<body class="bg-gray-100" x-data="{ sidebarOpen: false }">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 transform transition-transform duration-200 lg:translate-x-0 lg:static lg:inset-0"
+               :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+            <!-- Logo -->
+            <div class="flex items-center justify-between h-16 px-6 bg-gray-800">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center">
+                    <svg class="h-8 w-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                    <span class="ml-2 text-lg font-bold text-white">Admin Panel</span>
+                </a>
+                <button @click="sidebarOpen = false" class="lg:hidden text-gray-400 hover:text-white">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
             
-            <!-- Toggler for mobile -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <!-- Navigation Links -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <!-- Dashboard -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" 
-                           href="{{ route('admin.dashboard') }}">
-                            <i class="bi bi-speedometer2"></i> Dashboard
-                        </a>
-                    </li>
-                    
-                    <!-- Barang -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.barang.*') ? 'active' : '' }}" 
-                           href="{{ route('admin.barang.index') }}">
-                            <i class="bi bi-box-seam"></i> Barang
-                        </a>
-                    </li>
-                    
-                    <!-- Pengajuan -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.pengajuan.*') ? 'active' : '' }}" 
-                           href="{{ route('admin.pengajuan.index') }}">
-                            <i class="bi bi-file-earmark-text"></i> Pengajuan
-                        </a>
-                    </li>
-                    
-                    <!-- Peminjaman -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.peminjaman.*') ? 'active' : '' }}" 
-                           href="{{ route('admin.peminjaman.index') }}">
-                            <i class="bi bi-arrow-repeat"></i> Peminjaman
-                        </a>
-                    </li>
-                    
-                    <!-- Laporan -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}" 
-                           href="{{ route('admin.laporan.peminjaman') }}">
-                            <i class="bi bi-file-earmark-bar-graph"></i> Laporan
-                        </a>
-                    </li>
-                    
-                    <!-- SUPER ADMIN ONLY MENU -->
-                    @if(Auth::guard('admin')->check() && Auth::guard('admin')->user()->id_role == 1)
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.admins.*') ? 'active' : '' }}" 
-                               href="#" 
-                               role="button" 
-                               data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                <i class="bi bi-shield-check"></i> Management
-                                <span class="badge bg-warning text-dark ms-1">SUPER</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <h6 class="dropdown-header">
-                                        <i class="bi bi-shield-lock"></i> Super Admin Tools
-                                    </h6>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" 
-                                       href="{{ route('admin.users.index') }}">
-                                        <i class="bi bi-people"></i> Kelola Siswa
-                                        <span class="badge bg-success float-end">
-                                            {{ \App\Models\User::count() }}
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item {{ request()->routeIs('admin.admins.*') ? 'active' : '' }}" 
-                                       href="{{ route('admin.admins.index') }}">
-                                        <i class="bi bi-person-gear"></i> Kelola Admin
-                                        <span class="badge bg-info float-end">
-                                            {{ \App\Models\Admin::count() }}
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
+            <!-- Navigation -->
+            <nav class="mt-6 px-3">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg mb-1 {{ request()->routeIs('admin.dashboard') ? 'bg-gray-800 text-white' : '' }}">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    <span class="ml-3">Dashboard</span>
+                </a>
                 
-                <!-- User Profile Dropdown -->
-                <div class="navbar-nav">
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" 
-                           href="#" 
-                           role="button" 
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class="bi bi-person-circle"></i> 
-                            {{ Auth::guard('admin')->user()->nama }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <h6 class="dropdown-header">
-                                    <i class="bi bi-person-badge"></i> Admin Profile
-                                </h6>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <span class="dropdown-item-text">
-                                    <strong>Username:</strong> {{ Auth::guard('admin')->user()->username }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="dropdown-item-text">
-                                    <strong>Role:</strong> 
-                                    @if(Auth::guard('admin')->user()->id_role == 1)
-                                        <span class="badge bg-warning text-dark">
-                                            {{ Auth::guard('admin')->user()->role->nama }}
-                                        </span>
-                                    @else
-                                        <span class="badge bg-secondary">
-                                            {{ Auth::guard('admin')->user()->role->nama }}
-                                        </span>
-                                    @endif
-                                </span>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item text-danger">
-                                        <i class="bi bi-box-arrow-right"></i> Logout
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
+                <a href="{{ route('admin.barang.index') }}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg mb-1 {{ request()->routeIs('admin.barang.*') ? 'bg-gray-800 text-white' : '' }}">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                    <span class="ml-3">Data Barang</span>
+                </a>
+                
+                <a href="{{ route('admin.pengajuan.index') }}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg mb-1 {{ request()->routeIs('admin.pengajuan.*') ? 'bg-gray-800 text-white' : '' }}">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <span class="ml-3">Pengajuan</span>
+                </a>
+                
+                <a href="{{ route('admin.peminjaman.index') }}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg mb-1 {{ request()->routeIs('admin.peminjaman.*') ? 'bg-gray-800 text-white' : '' }}">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                    <span class="ml-3">Peminjaman</span>
+                </a>
+
+                <a href="{{ route('admin.laporan.index') }}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg mb-1 {{ request()->routeIs('admin.laporan.*') ? 'bg-gray-800 text-white' : '' }}">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <span class="ml-3">Laporan</span>
+                </a>
+
+                @if(Auth::guard('admin')->user()->id_role == 1)
+                <div class="mt-6 pt-6 border-t border-gray-700">
+                    <p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Super Admin</p>
+                    
+                    <a href="{{ route('admin.users.index') }}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg mb-1 {{ request()->routeIs('admin.users.*') ? 'bg-gray-800 text-white' : '' }}">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                        <span class="ml-3">Manajemen Siswa</span>
+                    </a>
+                    
+                    <a href="{{ route('admin.admins.index') }}" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg mb-1 {{ request()->routeIs('admin.admins.*') ? 'bg-gray-800 text-white' : '' }}">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span class="ml-3">Manajemen Admin</span>
+                    </a>
+                </div>
+                @endif
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navbar -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="flex items-center justify-between h-16 px-6">
+                    <button @click="sidebarOpen = true" class="lg:hidden text-gray-500">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="flex-1"></div>
+                    
+                    <!-- User Dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="flex items-center space-x-2 focus:outline-none">
+                            <div class="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium">
+                                {{ substr(Auth::guard('admin')->user()->nama, 0, 1) }}
+                            </div>
+                            <div class="text-left hidden md:block">
+                                <p class="text-sm font-medium text-gray-700">{{ Auth::guard('admin')->user()->nama }}</p>
+                                <p class="text-xs text-gray-500">{{ Auth::guard('admin')->user()->role->nama }}</p>
+                            </div>
+                            <svg class="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        
+                        <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50" style="display: none;">
+                            <form method="POST" action="{{ route('admin.logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </nav>
+            </header>
 
-    <!-- MAIN CONTENT -->
-    <div class="container-fluid" style="margin-top: 70px;">
-        <div class="row">
-            <main class="col-md-12 ms-sm-auto px-md-4">
-                
-                <!-- ALERTS -->
+            <!-- Page Content -->
+            <main class="flex-1 overflow-y-auto p-6">
                 @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                        <i class="bi bi-check-circle-fill"></i>
-                        <strong>Berhasil!</strong> {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                    <div class="alert-success mb-6">{{ session('success') }}</div>
                 @endif
-
                 @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill"></i>
-                        <strong>Error!</strong> {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                    <div class="alert-error mb-6">{{ session('error') }}</div>
                 @endif
-
                 @if($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-                        <i class="bi bi-exclamation-octagon-fill"></i>
-                        <strong>Validation Error!</strong>
-                        <ul class="mb-0 mt-2">
+                    <div class="alert-error mb-6">
+                        <ul class="list-disc list-inside">
                             @foreach($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
 
-                <!-- PAGE CONTENT -->
-                <div class="py-4">
-                    @yield('content')
-                </div>
+                @yield('content')
             </main>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="footer mt-5 py-3 bg-light border-top">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <span class="text-muted">
-                        <p class="bi bi-c-circle text-center"> 2025 Inventaris Sekolah. All rights reserved.</p>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Overlay for mobile sidebar -->
+    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" style="display: none;"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    @stack('scripts')
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Laporan Peminjaman')
+@section('title', 'Laporan Pengajuan')
 
 @section('content')
 <div class="space-y-6">
@@ -13,10 +13,10 @@
                 </svg>
                 Kembali
             </a>
-            <h1 class="text-2xl font-bold text-gray-900">Laporan Peminjaman</h1>
-            <p class="text-gray-600">Data peminjaman barang dengan filter</p>
+            <h1 class="text-2xl font-bold text-gray-900">Laporan Pengajuan</h1>
+            <p class="text-gray-600">Data pengajuan peminjaman barang</p>
         </div>
-        <button onclick="window.print()" class="btn-secondary btn-sm">
+        <button onclick="window.print()" class="btn-secondary btn-sm no-print">
             <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
             </svg>
@@ -25,22 +25,26 @@
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div class="card">
-            <p class="text-sm text-gray-600">Total Peminjaman</p>
+            <p class="text-sm text-gray-600">Total Pengajuan</p>
             <p class="text-2xl font-bold text-gray-900">{{ $stats['total'] }}</p>
         </div>
         <div class="card">
-            <p class="text-sm text-gray-600">Dipinjam</p>
-            <p class="text-2xl font-bold text-blue-600">{{ $stats['dipinjam'] }}</p>
+            <p class="text-sm text-gray-600">Pending</p>
+            <p class="text-2xl font-bold text-yellow-600">{{ $stats['pending'] }}</p>
         </div>
         <div class="card">
-            <p class="text-sm text-gray-600">Dikembalikan</p>
-            <p class="text-2xl font-bold text-green-600">{{ $stats['dikembalikan'] }}</p>
+            <p class="text-sm text-gray-600">Disetujui</p>
+            <p class="text-2xl font-bold text-green-600">{{ $stats['approved'] }}</p>
         </div>
         <div class="card">
-            <p class="text-sm text-gray-600">Hilang</p>
-            <p class="text-2xl font-bold text-red-600">{{ $stats['hilang'] }}</p>
+            <p class="text-sm text-gray-600">Ditolak</p>
+            <p class="text-2xl font-bold text-red-600">{{ $stats['rejected'] }}</p>
+        </div>
+        <div class="card">
+            <p class="text-sm text-gray-600">Approval Rate</p>
+            <p class="text-2xl font-bold text-blue-600">{{ $stats['approval_rate'] }}%</p>
         </div>
     </div>
 
@@ -51,9 +55,9 @@
                 <label class="label">Status</label>
                 <select name="status" class="input-field">
                     <option value="">Semua Status</option>
-                    <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Dipinjam</option>
-                    <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Dikembalikan</option>
-                    <option value="2" {{ request('status') == '2' ? 'selected' : '' }}>Hilang</option>
+                    <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Pending</option>
+                    <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Disetujui</option>
+                    <option value="2" {{ request('status') == '2' ? 'selected' : '' }}>Ditolak</option>
                 </select>
             </div>
             <div>
@@ -77,37 +81,37 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="table-header">No</th>
+                        <th class="table-header">Tanggal</th>
                         <th class="table-header">Siswa</th>
                         <th class="table-header">Barang</th>
                         <th class="table-header">Jumlah</th>
-                        <th class="table-header">Tgl Mulai</th>
-                        <th class="table-header">Tgl Selesai</th>
                         <th class="table-header">Status</th>
+                        <th class="table-header">Diproses Oleh</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse($peminjamans as $index => $peminjaman)
+                    @forelse($pengajuans as $index => $pengajuan)
                     <tr>
-                        <td class="table-cell">{{ $peminjamans->firstItem() + $index }}</td>
+                        <td class="table-cell">{{ $pengajuans->firstItem() + $index }}</td>
+                        <td class="table-cell">{{ $pengajuan->tgl_pengajuan->format('d M Y') }}</td>
                         <td class="table-cell">
                             <div>
-                                <p class="font-medium">{{ $peminjaman->pengajuan->user->nama }}</p>
-                                <p class="text-xs text-gray-500">{{ $peminjaman->pengajuan->user->kelas }}</p>
+                                <p class="font-medium">{{ $pengajuan->user->nama }}</p>
+                                <p class="text-xs text-gray-500">{{ $pengajuan->user->kelas }}</p>
                             </div>
                         </td>
-                        <td class="table-cell">{{ $peminjaman->pengajuan->barang->nama_barang }}</td>
-                        <td class="table-cell">{{ $peminjaman->pengajuan->jumlah }}</td>
-                        <td class="table-cell">{{ $peminjaman->tgl_mulai->format('d M Y') }}</td>
-                        <td class="table-cell">{{ $peminjaman->tgl_selesai->format('d M Y') }}</td>
+                        <td class="table-cell">{{ $pengajuan->barang->nama_barang }}</td>
+                        <td class="table-cell">{{ $pengajuan->jumlah }}</td>
                         <td class="table-cell">
-                            @if($peminjaman->status == 0)
-                                <span class="badge-dipinjam">Dipinjam</span>
-                            @elseif($peminjaman->status == 1)
-                                <span class="badge-dikembalikan">Dikembalikan</span>
+                            @if($pengajuan->status == 0)
+                                <span class="badge-pending">Pending</span>
+                            @elseif($pengajuan->status == 1)
+                                <span class="badge-approved">Disetujui</span>
                             @else
-                                <span class="badge-hilang">Hilang</span>
+                                <span class="badge-rejected">Ditolak</span>
                             @endif
                         </td>
+                        <td class="table-cell">{{ $pengajuan->admin ? $pengajuan->admin->nama : '-' }}</td>
                     </tr>
                     @empty
                     <tr>
@@ -117,9 +121,9 @@
                 </tbody>
             </table>
         </div>
-        @if($peminjamans->hasPages())
+        @if($pengajuans->hasPages())
         <div class="bg-gray-50 px-6 py-4 border-t">
-            {{ $peminjamans->links() }}
+            {{ $pengajuans->links() }}
         </div>
         @endif
     </div>
@@ -127,7 +131,7 @@
 
 <style>
 @media print {
-    nav, .no-print, button { display: none !important; }
+    nav, .no-print { display: none !important; }
 }
 </style>
 @endsection
